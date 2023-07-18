@@ -1,0 +1,2 @@
+# ani2xcur
+一个将windows鼠标指针转换为linux鼠标指针的脚本，转换核心基于win2xcur
