@@ -1,5 +1,4 @@
 inf_file=$(ls -a | grep \.inf$)
-test_source_num_="0"
 start_path_=$(pwd)
 function mainmenu()
 {
@@ -9,12 +8,12 @@ function mainmenu()
         echo "未安装win2xcur"
         install_win2xcur
     fi
+    declare -g test_source_num_="0"
     test_source
     if [ $test_source_num_ = 1 ];then
         install_source
     else
         echo "资源文件完整"
-        start_win2xcur
     fi
     echo "环境准备完成，开始转换"
     start_win2xcur
@@ -28,7 +27,7 @@ function install_win2xcur()
     echo "请选择pip安装源,如果没有科学上网的话建议使用镜像源"
     echo "1、官方源"
     echo "2、镜像源"
-    read -p "输入数字后回车" pip_pak_image
+    read -p "输入数字后回车==>" pip_pak_image
     if [ $pip_pak_image = 1 ];then
         pip install win2xcur -i https://pypi.python.org/simple
     elif [ $pip_pak_image = 2 ];then
@@ -37,19 +36,22 @@ function install_win2xcur()
         echo "输入有误，请重试"
         test_win2xcur
     fi
+    mainmenu
 }
 
 function install_source()
 {
     echo "请选择下载资源方式"
     echo "1、不使用代理站"
-    ehoc "2、使用代理站"
-    read -p "输入数字后回车" github_proxy_select
+    echo "2、使用代理站"
+    read -p "输入数字后回车==>" github_proxy_select
     if [ $github_proxy_select = 1 ];then
+        declare -g dl_source_methon="1"
         dl_source
         mainmenu
     elif [ $github_proxy_select = 2 ];then
-        dl_source proxy
+        declare -g dl_source_methon="proxy"
+        dl_source
         mainmenu
     else
         echo "输入有误，请重试"
@@ -60,7 +62,6 @@ function install_source()
 function test_source()
 {
     #检测文件是否完整
-    test_source_num_=0
     test_source_num=0
 
     if [ ! -e $start_path_/win2xcur-source/left_ptr ];then
@@ -147,8 +148,8 @@ function test_source()
     if [ ! -e $start_path_/win2xcur-source/zoom-out ];then
         test_source_num=$(( $test_source_num + 1 ))
     fi
-    
-    if [ $test_source_num > 0 ];then
+
+    if [ ! $test_source_num -gt 0 ];then
         echo "资源完整"
     else
         echo "资源不完整，请重新下载"
@@ -158,182 +159,184 @@ function test_source()
 
 function dl_source()
 {
+    echo "下载资源文件"
     #创建资源文件夹
     if [ ! -e $start_path_/win2xcur-source ];then
         mkdir $start_path_/win2xcur-source
     fi
-
+    cd $start_path_
     #下载资源文件
-    if [ $1 = proxy ];then
+    if [ $dl_source_methon = proxy ];then
+        echo "使用代理站"
 
         if [ ! -e $start_path_/win2xcur-source/left_ptr ];then
-            aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/left_ptr -o $start_path_/win2xcur-source/left_ptr
+            aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/left_ptr -o ./win2xcur-source/left_ptr
         fi
 
         if [ ! -e $start_path_/win2xcur-source/question_arrow ];then
-            aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/question_arrow -o $start_path_/win2xcur-source/question_arrow
+            aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/question_arrow -o ./win2xcur-source/question_arrow
         fi
 
         if [ ! -e $start_path_/win2xcur-source/left_ptr_watch ];then
-            aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/left_ptr_watch -o $start_path_/win2xcur-source/left_ptr_watch
+            aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/left_ptr_watch -o ./win2xcur-source/left_ptr_watch
         fi
 
         if [ ! -e $start_path_/win2xcur-source/wait ];then
-            aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/wait -o $start_path_/win2xcur-source/wait
+            aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/wait -o ./win2xcur-source/wait
         fi
 
         if [ ! -e $start_path_/win2xcur-source/cross ];then
-            aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/cross -o $start_path_/win2xcur-source/cross
+            aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/cross -o ./win2xcur-source/cross
         fi
 
         if [ ! -e $start_path_/win2xcur-source/xterm ];then
-            aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/xterm -o $start_path_/win2xcur-source/xterm
+            aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/xterm -o ./win2xcur-source/xterm
         fi
 
         if [ ! -e $start_path_/win2xcur-source/pencil ];then
-            aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/pencil -o $start_path_/win2xcur-source/pencil
+            aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/pencil -o ./win2xcur-source/pencil
         fi
 
         if [ ! -e $start_path_/win2xcur-source/circle ];then
-            aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/circle -o $start_path_/win2xcur-source/circle
+            aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/circle -o ./win2xcur-source/circle
         fi
 
         if [ ! -e $start_path_/win2xcur-source/bottom_side ];then
-            aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/bottom_side -o $start_path_/win2xcur-source/bottom_side
+            aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/bottom_side -o ./win2xcur-source/bottom_side
         fi
 
         if [ ! -e $start_path_/win2xcur-source/left_side ];then
-            aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/left_side -o $start_path_/win2xcur-source/left_side
+            aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/left_side -o ./win2xcur-source/left_side
         fi
 
         if [ ! -e $start_path_/win2xcur-source/bottom_right_corner ];then
-            aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/bottom_right_corner -o $start_path_/win2xcur-source/bottom_right_corner
+            aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/bottom_right_corner -o ./win2xcur-source/bottom_right_corner
         fi
 
         if [ ! -e $start_path_/win2xcur-source/bottom_left_corner ];then
-            aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/bottom_left_corner -o $start_path_/win2xcur-source/bottom_left_corner
+            aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/bottom_left_corner -o ./win2xcur-source/bottom_left_corner
         fi
 
         if [ ! -e $start_path_/win2xcur-source/move ];then
-            aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/move -o $start_path_/win2xcur-source/move
+            aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/move -o ./win2xcur-source/move
         fi
 
         if [ ! -e $start_path_/win2xcur-source/dotbox ];then
-            aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/dotbox -o $start_path_/win2xcur-source/dotbox
+            aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/dotbox -o ./win2xcur-source/dotbox
         fi
 
         if [ ! -e $start_path_/win2xcur-source/hand2 ];then
-            aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/hand2 -o $start_path_/win2xcur-source/hand2
+            aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/hand2 -o ./win2xcur-source/hand2
         fi
 
         if [ ! -e $start_path_/win2xcur-source/right_ptr ];then
-            aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/right_ptr -o $start_path_/win2xcur-source/right_ptr
+            aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/right_ptr -o ./win2xcur-source/right_ptr
         fi
 
         if [ ! -e $start_path_/win2xcur-source/vertical-text ];then
-            aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/vertical-text -o $start_path_/win2xcur-source/vertical-text
+            aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/vertical-text -o ./win2xcur-source/vertical-text
         fi
 
         if [ ! -e $start_path_/win2xcur-source/wayland-cursor ];then
-            aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/wayland-cursor -o $start_path_/win2xcur-source/wayland-cursor
+            aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/wayland-cursor -o ./win2xcur-source/wayland-cursor
         fi
 
         if [ ! -e $start_path_/win2xcur-source/center_ptr ];then
-            aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/center_ptr -o $start_path_/win2xcur-source/center_ptr
+            aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/center_ptr -o ./win2xcur-source/center_ptr
         fi
 
         if [ ! -e $start_path_/win2xcur-source/zoom-in ];then
-            aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/zoom-in -o $start_path_/win2xcur-source/zoom-in
+            aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/zoom-in -o ./win2xcur-source/zoom-in
         fi
 
         if [ ! -e $start_path_/win2xcur-source/zoom-out ];then
-            aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/zoom-out -o $start_path_/win2xcur-source/zoom-out
+            aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/zoom-out -o ./win2xcur-source/zoom-out
         fi
 
     else
 
         if [ ! -e $start_path_/win2xcur-source/left_ptr ];then
-            aria2c https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/left_ptr -o $start_path_/win2xcur-source/left_ptr
+            aria2c https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/left_ptr -o ./win2xcur-source/left_ptr
         fi
 
         if [ ! -e $start_path_/win2xcur-source/question_arrow ];then
-            aria2c https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/question_arrow -o $start_path_/win2xcur-source/question_arrow
+            aria2c https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/question_arrow -o ./win2xcur-source/question_arrow
         fi
 
         if [ ! -e $start_path_/win2xcur-source/left_ptr_watch ];then
-            aria2c https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/left_ptr_watch -o $start_path_/win2xcur-source/left_ptr_watch
+            aria2c https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/left_ptr_watch -o ./win2xcur-source/left_ptr_watch
         fi
 
         if [ ! -e $start_path_/win2xcur-source/wait ];then
-            aria2c https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/wait -o $start_path_/win2xcur-source/wait
+            aria2c https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/wait -o ./win2xcur-source/wait
         fi
 
         if [ ! -e $start_path_/win2xcur-source/cross ];then
-            aria2c https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/cross -o $start_path_/win2xcur-source/cross
+            aria2c https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/cross -o ./win2xcur-source/cross
         fi
 
         if [ ! -e $start_path_/win2xcur-source/xterm ];then
-            aria2c https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/xterm -o $start_path_/win2xcur-source/xterm
+            aria2c https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/xterm -o ./win2xcur-source/xterm
         fi
 
         if [ ! -e $start_path_/win2xcur-source/pencil ];then
-            aria2c https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/pencil -o $start_path_/win2xcur-source/pencil
+            aria2c https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/pencil -o ./win2xcur-source/pencil
         fi
 
         if [ ! -e $start_path_/win2xcur-source/circle ];then
-            aria2c https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/circle -o $start_path_/win2xcur-source/circle
+            aria2c https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/circle -o ./win2xcur-source/circle
         fi
 
         if [ ! -e $start_path_/win2xcur-source/bottom_side ];then
-            aria2c https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/bottom_side -o $start_path_/win2xcur-source/bottom_side
+            aria2c https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/bottom_side -o ./win2xcur-source/bottom_side
         fi
 
         if [ ! -e $start_path_/win2xcur-source/left_side ];then
-            aria2c https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/left_side -o $start_path_/win2xcur-source/left_side
+            aria2c https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/left_side -o ./win2xcur-source/left_side
         fi
 
         if [ ! -e $start_path_/win2xcur-source/bottom_right_corner ];then
-            aria2c https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/bottom_right_corner -o $start_path_/win2xcur-source/bottom_right_corner
+            aria2c https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/bottom_right_corner -o ./win2xcur-source/bottom_right_corner
         fi
 
         if [ ! -e $start_path_/win2xcur-source/bottom_left_corner ];then
-            aria2c https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/bottom_left_corner -o $start_path_/win2xcur-source/bottom_left_corner
+            aria2c https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/bottom_left_corner -o ./win2xcur-source/bottom_left_corner
         fi
 
         if [ ! -e $start_path_/win2xcur-source/move ];then
-            aria2c https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/move -o $start_path_/win2xcur-source/move
+            aria2c https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/move -o ./win2xcur-source/move
         fi
 
         if [ ! -e $start_path_/win2xcur-source/dotbox ];then
-            aria2c https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/dotbox -o $start_path_/win2xcur-source/dotbox
+            aria2c https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/dotbox -o ./win2xcur-source/dotbox
         fi
 
         if [ ! -e $start_path_/win2xcur-source/hand2 ];then
-            aria2c https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/hand2 -o $start_path_/win2xcur-source/hand2
+            aria2c https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/hand2 -o ./win2xcur-source/hand2
         fi
 
         if [ ! -e $start_path_/win2xcur-source/right_ptr ];then
-            aria2c https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/right_ptr -o $start_path_/win2xcur-source/right_ptr
+            aria2c https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/right_ptr -o ./win2xcur-source/right_ptr
         fi
 
         if [ ! -e $start_path_/win2xcur-source/vertical-text ];then
-            aria2c https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/vertical-text -o $start_path_/win2xcur-source/vertical-text
+            aria2c https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/vertical-text -o ./win2xcur-source/vertical-text
         fi
 
         if [ ! -e $start_path_/win2xcur-source/wayland-cursor ];then
-            aria2c https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/wayland-cursor -o $start_path_/win2xcur-source/wayland-cursor
+            aria2c https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/wayland-cursor -o ./win2xcur-source/wayland-cursor
         fi
 
         if [ ! -e $start_path_/win2xcur-source/center_ptr ];then
-            aria2c https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/center_ptr -o $start_path_/win2xcur-source/center_ptr
+            aria2c https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/center_ptr -o ./win2xcur-source/center_ptr
         fi
 
         if [ ! -e $start_path_/win2xcur-source/zoom-in ];then
-            aria2c https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/zoom-in -o $start_path_/win2xcur-source/zoom-in
+            aria2c https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/zoom-in -o ./win2xcur-source/zoom-in
         fi
 
         if [ ! -e $start_path_/win2xcur-source/zoom-out ];then
-            aria2c https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/zoom-out -o $start_path_/win2xcur-source/zoom-out
+            aria2c https://raw.githubusercontent.com/licyk/ani2xcur/main/win2xcur-source/zoom-out -o ./win2xcur-source/zoom-out
         fi
     fi
 
@@ -552,9 +555,9 @@ function start_win2xcur()
     fi
 
     echo "补全鼠标指针中"
-    cp $start_path_/win2xcur-source/right_ptr $start_path/win2xcur-tmp/"$cur_name"/cursors
-    cp $start_path_/win2xcur-source/vertical-text $start_path/win2xcur-tmp/"$cur_name"/cursors
-    cp $start_path_/win2xcur-source/wayland-cursor $start_path/win2xcur-tmp/"$cur_name"/cursors
+    cp -fv $start_path_/win2xcur-source/right_ptr $start_path/win2xcur-tmp/"$cur_name"/cursors
+    cp -fv $start_path_/win2xcur-source/vertical-text $start_path/win2xcur-tmp/"$cur_name"/cursors
+    cp -fv $start_path_/win2xcur-source/wayland-cursor $start_path/win2xcur-tmp/"$cur_name"/cursors
     
     #为其他鼠标指针别名创建链接
     echo "创建鼠标指针链接"
@@ -718,7 +721,7 @@ else
 fi
 
 if which "$test_python" > /dev/null ;then
-    start_win2xcur #mainmenu
+    mainmenu
 else
     echo "未安装python,请安装后重试"
     echo "正在退出"
