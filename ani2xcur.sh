@@ -1,4 +1,8 @@
+#!/bin/bash
+
 inf_file=$(ls -a | grep \.inf$)
+
+
 start_path_=$(pwd)
 
 #主界面
@@ -27,6 +31,10 @@ function mainmenu()
 
         if [ $mainmenu_select = 4 ];then
             update_option
+        fi
+
+        if [ $mainmenu_select = 5 ];then
+            ani2xcur_info
         fi
 
         if [ $mainmenu_select = 5 ];then
@@ -60,10 +68,10 @@ function install_source()
 
         if [ $install_source_ = 1 ];then
             if (dialog --clear --title "下载源选择" --yes-label "是" --no-label "否" --yesno "是否选择使用代理源下载转换资源" 20 60);then
-                dl_source_proxy="https://ghproxy.com"
+                declare -g dl_source_proxy="https://ghproxy.com"
                 dl_source
             else
-                dl_source_proxy=""
+                declare -g dl_source_proxy=""
                 dl_source
             fi
         fi
@@ -120,6 +128,48 @@ function install_win2xcur()
     fi
     mainmenu
 }
+
+#ain2xcur更新选项
+function update_option()
+{
+    if (dialog --clear --title "更新选项" --yes-label "是" --no-label "否" --yesno "更新时是否选择代理" 20 60);then
+        aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/ani2xcur/main/ani2xcur.sh -d ./ani2xcur-update-tmp/
+        if [ "$?"="0" ];then
+            cp -fv ./ani2xcur-update-tmp/ani2xcur.sh $start_path_/
+            rm -rfv ./ani2xcur-update-tmp
+            chmod +x ./ani2xcur.sh
+            if (dialog --clear --title "更新选项" --msgbox "更新成功" 20 60);then
+                source ./ani2xcur.sh
+            fi
+        else
+            dialog --clear --title "更新选项" --msgbox "更新失败，请重试" 20 60
+        fi
+    else
+        aria2c https://raw.githubusercontent.com/licyk/ani2xcur/main/ani2xcur.sh -d ./ani2xcur-update-tmp/
+        if [ "$?"="0" ];then
+            cp -fv ./ani2xcur-update-tmp/ani2xcur.sh $start_path_/
+            rm -rfv ./ani2xcur-update-tmp
+            chmod +x ./ani2xcur.sh
+            if (dialog --clear --title "更新选项" --msgbox "更新成功" 20 60);then
+                source ./ani2xcur.sh
+            fi
+        else
+            dialog --clear --title "更新选项" --msgbox "更新失败，请重试" 20 60
+        fi
+    fi
+    mainmenu
+}
+
+#关于选项
+function ani2xcur_info()
+{
+    dialog --clear --title "关于ani2xcur" --msgbox "一个将windows鼠标指针转换为linux鼠标指针的脚本，转换核心基于win2xcur\n
+使用说明:\n
+使用转换功能前需要安装win2xcur和下载转换资源\n
+"
+}
+
+###############################################################################
 
 #转换资源检测
 function test_source()
@@ -315,6 +365,7 @@ function dl_source()
     fi
 }
 
+#转换功能
 function start_win2xcur()
 {
     cat "$inf_file" | awk '/\[Strings\]/{print;flag=1;next}/=/{if(flag==1)print}' > .win2xcur-pre_.conf #读取inf配置
@@ -596,7 +647,6 @@ function start_win2xcur()
     ln -sv pencil 640fb0e74195791501fd1ed57b41487f
     ln -sv pencil a2a266d0498c3104214a47bd64ab0fc8
     ln -sv pencil b66166c04f8c3109214a4fbd64a50fc8
-
 
     ln -sv circle crossed_circle
     ln -sv circle dnd_no_drop
