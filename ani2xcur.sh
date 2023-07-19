@@ -1,14 +1,35 @@
 #!/bin/bash
 
-inf_file=$(ls -a | grep \.inf$)
-
-
+echo "初始化ani2xcur"
 start_path_=$(pwd)
+
+#文件后缀设置
+file_format="inf"
+file_format_1="ani"
+###############################################################################
 
 #主界面
 function mainmenu()
 {
-    mainmenu_select=$(dialog --clear --title " dddd" --menu "ddd" 20 60 10 \
+    start_lock=0
+    #检测所需资源
+    if which win2xcur > /dev/null ;then
+        win2xcur_info=$(echo -e "\033[36m已安装\033[0m")
+    else
+        win2xcur_info=$(echo -e "\033[31m未安装\033[0m")
+        start_lock=1
+    fi
+
+    test_source
+
+    if [ $? = 0 ];then
+        source_info=$(echo -e "\033[36m转换资源已下载\033[0m")
+    else
+        source_info=$(echo -e "\033[31m转换资源未下载\033[0m")
+        start_lock=1
+    fi
+
+    mainmenu_select=$(dialog --clear --title "ani2xcur" --menu "请选择要进行的操作\nwin2xcur安装状态:$win2xcur_info\n转换文件状态:$source_info" 20 60 10 \
                 "1" "浏览文件" \
                 "2" "下载转换资源" \
                 "3" "安装win2xcur" \
@@ -18,7 +39,12 @@ function mainmenu()
                 3>&1 1>&2 2>&3 )
     if [ $? = 0 ];then
         if [ $mainmenu_select = 1 ];then
-            file_browser
+            if [ $start_lock = 0 ];then
+                file_browser
+            else
+                dialog --clear --title "ani2xcur" --msgbox "请安装win2xcur和下载转换资源后再重试" 20 60
+                mainmenu
+            fi
         fi
 
         if [ $mainmenu_select = 2 ];then
@@ -101,6 +127,7 @@ function install_win2xcur()
 
     install_win2xcur_=$(dialog --clear --title "win2xcur管理" --menu "请选择要进行的操作\n当前win2xcur安装状态:$win2xcur_info" 20 60 10 \
                 "1" "$win2xcur_install_menu" \
+                "2" "强制"$win2xcur_install_menu""
                 "2" "卸载" \
                 "3" "返回" \
                 3>&1 1>&2 2>&3)
@@ -116,12 +143,20 @@ function install_win2xcur()
         fi
 
         if [ $install_win2xcur_ = 2 ];then
+            if (dialog --clear --title "安装源选择" --yes-label "是" --no-label "否" --yesno "是否选择使用镜像源下载win2xcur" 20 60);then
+                pip install --upgrade --break-system-packages --force-reinstall win2xcur -i https://mirrors.bfsu.edu.cn/pypi/web/simple
+            else
+                pip install --upgrade --break-system-packages --force-reinstall win2xcur -i https://pypi.python.org/simple
+            fi
+        fi
+
+        if [ $install_win2xcur_ = 3 ];then
             if (dialog --clear --title "卸载选项" --yes-label "是" --no-label "否" --yesno "是否卸载win2xcur" 20 60);then
                 pip uninstall win2xcur
             fi
         fi
 
-        if [ $install_win2xcur_ = 3 ];then
+        if [ $install_win2xcur_ = 4 ];then
             mainmenu
         fi
 
@@ -166,8 +201,69 @@ function ani2xcur_info()
     dialog --clear --title "关于ani2xcur" --msgbox "一个将windows鼠标指针转换为linux鼠标指针的脚本，转换核心基于win2xcur\n
 使用说明:\n
 使用转换功能前需要安装win2xcur和下载转换资源\n
-"
+转换文件会储存在脚本所在目录下的win2xcur-source文件夹\n
+安装好win2xcur和下载好转换资源后，点击"浏览文件"寻找需要转换的鼠标文件\n
+选择ani后缀或者inf后缀的文件即可开始转换\n
+转换完成后的文件将会在脚本所在目录下生成
+" 20 60
+    mainmenu
 }
+###############################################################################
+
+#文件浏览功能
+function file_browser()
+{
+    dir_list=$(ls -lhFt | awk -F ' ' ' {print $9 " " $5 } ') #列出当前文件和文件夹
+
+	if [ $(pwd) = "/" ];then
+		file_select=$(dialog --clear --title "文件管理" \
+			--menu "使用方向键和回车键进行选择\n名称后面带有\"/\"的是文件夹\n文件和文件夹按时间排序,最新的排在前面\n当前路径$(pwd)" 25 60 10 \
+				$dir_list \
+				3>&1 1>&2 2>&3)
+
+	else
+		file_select=$(dialog --clear --title "文件管理" \
+			--menu "使用方向键和回车键进行选择\n名称后面带有\"/\"的是文件夹\n文件和文件夹按时间排序,最新的排在前面\n当前路径$(pwd)" 25 60 10 \
+				"-->返回上一个目录" "X" \
+				$dir_list \
+				3>&1 1>&2 2>&3)
+	fi
+
+	#判断选择
+	if [ $? -eq 0 ];then #选择确定
+		if [[ -d "$file_select" ]];then #选择的是目录
+			cd $file_select
+			echo "选择的是目录"
+			file_browser
+		elif [[ -f $file_select ]];then #选择的是文件
+			echo "选择的是文件"
+			if [[ $file_select == *$file_format ]];then #选择的文件是指定格式
+                declare -g inf_file=$(ls -a | grep \.inf$)
+				start_win2xcur
+				file_browser
+			elif [[ $file_select == *$file_format_1 ]];then #选择的文件是指定格式
+                declare -g inf_file=$(ls -a | grep \.inf$)
+				start_win2xcur
+				file_browser
+			else
+				dialog --clear --title "文件管理" --msgbox "文件格式错误,请选择以inf后缀或ani后缀的文件" 25 60
+				file_browser
+			fi
+		else 
+			if [ $file_select = "-->返回上一个目录" ];then #选择返回上一个目录
+				cd ..
+				file_browser
+			else
+				dialog --clear --title "文件管理" --msgbox "打开路径失败,可能是文件夹名称包含空格,或者是文件名包括空格,软件认为该文件为文件夹" 25 60
+				file_browser
+			fi
+		fi
+	else #选择取消
+		mainmenu #退出文件管理
+	fi
+}
+
+
 
 ###############################################################################
 
@@ -774,6 +870,14 @@ else
 fi
 
 if which "$test_python" > /dev/null ;then
+    dialog --clear --title "版本信息" --msgbox "ani2xcur:0.0.1\n
+python:$($test_python --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ') \n
+pip:$(pip --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ') \n
+\n
+提示: \n
+使用方向键、Tab键、Enter进行选择，Space键勾选或取消选项 \n
+Ctrl+C可中断指令的运行 \n
+第一次使用Term-SD时先在主界面选择“关于”查看使用说明" 20 60
     mainmenu
 else
     echo "未安装python,请安装后重试"
