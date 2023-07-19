@@ -14,18 +14,18 @@ function mainmenu()
     start_lock=0
     #检测所需资源
     if which win2xcur > /dev/null ;then
-        win2xcur_info=$(echo -e "\033[36m已安装\033[0m")
+        win2xcur_info="已安装"
     else
-        win2xcur_info=$(echo -e "\033[31m未安装\033[0m")
+        win2xcur_info="未安装"
         start_lock=1
     fi
 
     test_source
 
     if [ $? = 0 ];then
-        source_info=$(echo -e "\033[36m转换资源已下载\033[0m")
+        source_info="已下载"
     else
-        source_info=$(echo -e "\033[31m转换资源未下载\033[0m")
+        source_info="未下载"
         start_lock=1
     fi
 
@@ -33,9 +33,9 @@ function mainmenu()
                 "1" "浏览文件" \
                 "2" "下载转换资源" \
                 "3" "安装win2xcur" \
-                "3" "更新脚本" \
-                "4" "关于" \
-                "5" "退出" \
+                "4" "更新脚本" \
+                "5" "关于" \
+                "6" "退出" \
                 3>&1 1>&2 2>&3 )
     if [ $? = 0 ];then
         if [ $mainmenu_select = 1 ];then
@@ -63,7 +63,7 @@ function mainmenu()
             ani2xcur_info
         fi
 
-        if [ $mainmenu_select = 5 ];then
+        if [ $mainmenu_select = 6 ];then
             exit
         fi
     else
@@ -77,10 +77,10 @@ function install_source()
     #检测资源是否下载
     test_source
     if [ $? = 0 ];then
-        source_info=$(echo -e "\033[36m转换资源已下载\033[0m")
+        source_info="已下载"
         install_source_menu="重新下载"
     else
-        source_info=$(echo -e "\033[31m转换资源未下载\033[0m")
+        source_info="未下载"
         install_source_menu="下载"
     fi
 
@@ -118,10 +118,10 @@ function install_source()
 function install_win2xcur()
 {
     if which win2xcur > /dev/null ;then
-        win2xcur_info=$(echo -e "\033[36m已安装\033[0m")
+        win2xcur_info="已安装"
         win2xcur_install_menu="重新安装"
     else
-        win2xcur_info=$(echo -e "\033[31m未安装\033[0m")
+        win2xcur_info="未安装"
         win2xcur_install_menu="安装"
     fi
 
