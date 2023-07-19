@@ -218,7 +218,7 @@ function file_browser()
 
 	if [ $(pwd) = "/" ];then
 		file_select=$(dialog --clear --title "文件管理" \
-			--menu "使用方向键和回车键进行选择\n名称后面带有\"/\"的是文件夹\n文件和文件夹按时间排序,最新的排在前面\n当前路径$(pwd)" 25 60 10 \
+			--menu "使用方向键和回车键进行选择\n选择返回可以回到主界面\n名称后面带有\"/\"的是文件夹\n文件和文件夹按时间排序,最新的排在前面\n当前路径$(pwd)" 25 60 10 \
 				$dir_list \
 				3>&1 1>&2 2>&3)
 
@@ -866,7 +866,7 @@ function start_win2xcur()
 
     rm -rfv $start_path/win2xcur-tmp
     echo "转换完成"
-    dialog --clear --title "ani2xcur" --msgbox "转换完成\n输入 sudo cp $start_path_/"$cur_name" /usr/share/icons 可将鼠标指针安装进系统" 20 60
+    dialog --clear --title "ani2xcur" --msgbox "转换完成\n输入以下任意一条指令可将鼠标指针安装进系统\n\"sudo cp $start_path_/"$cur_name" /usr/share/icons\"\n\"mkdir ~/.icons && cp $start_path_/"$cur_name" ~/.icons\"" 20 60
 }
 
 ###############################################################################
@@ -884,7 +884,7 @@ pip:$(pip --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ') \n
 提示: \n
 使用方向键、Tab键、Enter进行选择，Space键勾选或取消选项 \n
 Ctrl+C可中断指令的运行 \n
-第一次使用Term-SD时先在主界面选择“关于”查看使用说明" 20 60
+第一次使用ani2xcur时先在主界面选择“关于”查看使用说明" 20 60
     mainmenu
 else
     echo "未安装python,请安装后重试"

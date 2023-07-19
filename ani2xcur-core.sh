@@ -17,7 +17,7 @@ function mainmenu()
     fi
     echo "环境准备完成，开始转换"
     start_win2xcur
-    echo "输入 sudo cp $start_path_/"$cur_name" /usr/share/icons 可将鼠标指针安装进系统了"
+    echo "输入以下任意一条指令可将鼠标指针安装进系统\n\"sudo cp $start_path_/"$cur_name" /usr/share/icons\"\n\"mkdir ~/.icons && cp $start_path_/"$cur_name" ~/.icons\""
     exit
 }
 
