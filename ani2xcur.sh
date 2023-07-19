@@ -6,6 +6,7 @@ declare -g start_path_=$(pwd)
 #文件后缀设置
 file_format="inf"
 file_format_1="ani"
+file_format_2="cur"
 ###############################################################################
 
 #主界面
@@ -203,7 +204,7 @@ function ani2xcur_info()
 使用转换功能前需要安装win2xcur和下载转换资源\n
 转换文件会储存在脚本所在目录下的win2xcur-source文件夹\n
 安装好win2xcur和下载好转换资源后，点击"浏览文件"寻找需要转换的鼠标文件\n
-选择ani后缀或者inf后缀的文件即可开始转换\n
+选择ani后缀，cur后缀或者inf后缀的文件即可开始转换\n
 转换完成后的文件将会在脚本所在目录下生成
 " 20 60
     mainmenu
@@ -242,6 +243,10 @@ function file_browser()
 				start_win2xcur
 				file_browser
 			elif [[ $file_select == *$file_format_1 ]];then #选择的文件是指定格式
+                declare -g inf_file=$(ls -a | grep \.inf$)
+				start_win2xcur
+				file_browser
+			elif [[ $file_select == *$file_format_2 ]];then #选择的文件是指定格式
                 declare -g inf_file=$(ls -a | grep \.inf$)
 				start_win2xcur
 				file_browser
@@ -872,7 +877,7 @@ else
 fi
 
 if which "$test_python" > /dev/null ;then
-    dialog --clear --title "版本信息" --msgbox "ani2xcur:0.0.1\n
+    dialog --clear --title "版本信息" --msgbox "ani2xcur:0.0.2\n
 python:$($test_python --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ') \n
 pip:$(pip --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ') \n
 \n
