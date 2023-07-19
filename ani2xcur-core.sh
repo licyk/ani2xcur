@@ -1,4 +1,4 @@
-inf_file="ls -a | grep \.inf$"
+inf_file=$(ls -a | grep \.inf$)
 test_source_num_="0"
 start_path_=$(pwd)
 function mainmenu()
@@ -341,8 +341,9 @@ function dl_source()
 
 function start_win2xcur()
 {
-    cat "$inf_file" | awk '/\[Strings\]/{print;flag=1;next}/=/{if(flag==1)print}' > .win2xcur-pre.conf #读取inf配置
-
+    cat "$inf_file" | awk '/\[Strings\]/{print;flag=1;next}/=/{if(flag==1)print}' > .win2xcur-pre_.conf #读取inf配置
+    iconv -f GBK -t UTF-8 .win2xcur-pre_.conf >.win2xcur-pre.conf
+    rm -rfv ./.win2xcur-pre_.conf
     cur_name=""
     cur_pointer=""
     cur_help=""
@@ -363,7 +364,7 @@ function start_win2xcur()
     cur_person=""
 
     #读取各个鼠标指针参数
-    cur_name=$(grep -E "SCHEME_NAME" ./.win2xcur-pre.conf | awk -F'"' '{print $2}' |tr 'A-Z' 'a-z')
+    cur_name=$(grep -IE "SCHEME_NAME" ./.win2xcur-pre.conf | awk -F'"' '{print $2}' |tr 'A-Z' 'a-z')
     cur_pointer=$(grep -E "pointer" ./.win2xcur-pre.conf | awk -F'"' '{print $2}' |tr 'A-Z' 'a-z')
     cur_help=$(grep -E "help" ./.win2xcur-pre.conf | awk -F'"' '{print $2}' |tr 'A-Z' 'a-z')
     cur_work=$(grep -E "work" ./.win2xcur-pre.conf | awk -F'"' '{print $2}' |tr 'A-Z' 'a-z')
@@ -382,6 +383,29 @@ function start_win2xcur()
     cur_pin=$(grep -E "pin" ./.win2xcur-pre.conf | awk -F'"' '{print $2}' |tr 'A-Z' 'a-z')
     cur_person=$(grep -E "person" ./.win2xcur-pre.conf | awk -F'"' '{print $2}' |tr 'A-Z' 'a-z')
 
+    echo "----------配置文件----------"
+    echo "鼠标名:"
+    echo $cur_name
+    echo "鼠标文件:"
+    echo $cur_pointer
+    echo $cur_help
+    echo $cur_work
+    echo $cur_busy
+    echo $cur_cross
+    echo $cur_text
+    echo $cur_hand
+    echo $cur_unavailiable
+    echo $cur_vert
+    echo $cur_horz
+    echo $cur_dgn1
+    echo $cur_dgn2
+    echo $cur_move
+    echo $cur_alternate
+    echo $cur_link
+    echo $cur_pin
+    echo $cur_person
+    echo "----------------------------"
+
     rm -fv ./.win2xcur-pre.conf #清理配置缓存文件
     start_path=$(pwd)
 
@@ -397,7 +421,7 @@ function start_win2xcur()
         cp $start_path_/win2xcur-source/left_ptr $start_path/win2xcur-tmp/"$cur_name"/cursors
     else
         echo "cur_pointer存在,进行转换中"
-        cp -ifv "$cur_pointer" $start_path/win2xcur-tmp/cursors-tmp/left_ptr.ani
+        cp -ifv $(ls -a |grep -iw "$cur_pointer") $start_path/win2xcur-tmp/cursors-tmp/left_ptr.ani
         win2xcur $start_path/win2xcur-tmp/cursors-tmp/left_ptr.ani -o $start_path/win2xcur-tmp/"$cur_name"/cursors
     fi
 
@@ -406,7 +430,7 @@ function start_win2xcur()
         cp $start_path_/win2xcur-source/question_arrow $start_path/win2xcur-tmp/"$cur_name"/cursors
     else
         echo "cur_help存在,进行转换中"
-        cp -ifv "$cur_help" $start_path/win2xcur-tmp/cursors-tmp/question_arrow.ani
+        cp -ifv $(ls -a |grep -iw "$cur_help") $start_path/win2xcur-tmp/cursors-tmp/question_arrow.ani
         win2xcur $start_path/win2xcur-tmp/cursors-tmp/question_arrow.ani -o $start_path/win2xcur-tmp/"$cur_name"/cursors
     fi
 
@@ -415,7 +439,7 @@ function start_win2xcur()
         cp $start_path_/win2xcur-source/left_ptr_watch $start_path/win2xcur-tmp/"$cur_name"/cursors
     else
         echo "cur_work存在,进行转换中"
-        cp -ifv "$cur_work" $start_path/win2xcur-tmp/cursors-tmp/left_ptr_watch.ani
+        cp -ifv $(ls -a |grep -iw "$cur_work") $start_path/win2xcur-tmp/cursors-tmp/left_ptr_watch.ani
         win2xcur $start_path/win2xcur-tmp/cursors-tmp/left_ptr_watch.ani -o $start_path/win2xcur-tmp/"$cur_name"/cursors
     fi
 
@@ -424,7 +448,7 @@ function start_win2xcur()
         cp $start_path_/win2xcur-source/wait $start_path/win2xcur-tmp/"$cur_name"/cursors
     else
         echo "cur_busy存在,进行转换中"
-        cp -ifv "$cur_busy" $start_path/win2xcur-tmp/cursors-tmp/wait.ani
+        cp -ifv $(ls -a |grep -iw "$cur_busy") $start_path/win2xcur-tmp/cursors-tmp/wait.ani
         win2xcur $start_path/win2xcur-tmp/cursors-tmp/wait.ani -o $start_path/win2xcur-tmp/"$cur_name"/cursors
     fi
 
@@ -433,7 +457,7 @@ function start_win2xcur()
         cp $start_path_/win2xcur-source/cross $start_path/win2xcur-tmp/"$cur_name"/cursors
     else
         echo "cur_cross存在,进行转换中"
-        cp -ifv "$cur_cross" $start_path/win2xcur-tmp/cursors-tmp/cross.ani
+        cp -ifv $(ls -a |grep -iw "$cur_cross") $start_path/win2xcur-tmp/cursors-tmp/cross.ani
         win2xcur $start_path/win2xcur-tmp/cursors-tmp/cross.ani -o $start_path/win2xcur-tmp/"$cur_name"/cursors
     fi
 
@@ -442,7 +466,7 @@ function start_win2xcur()
         cp $start_path_/win2xcur-source/xterm $start_path/win2xcur-tmp/"$cur_name"/cursors
     else
         echo "cur_text存在,进行转换中"
-        cp -ifv "$cur_text" $start_path/win2xcur-tmp/cursors-tmp/xterm.ani
+        cp -ifv $(ls -a |grep -iw "$cur_text") $start_path/win2xcur-tmp/cursors-tmp/xterm.ani
         win2xcur $start_path/win2xcur-tmp/cursors-tmp/xterm.ani -o $start_path/win2xcur-tmp/"$cur_name"/cursors
     fi
 
@@ -451,7 +475,7 @@ function start_win2xcur()
         cp $start_path_/win2xcur-source/pencil $start_path/win2xcur-tmp/"$cur_name"/cursors
     else    
         echo "cur_hand存在,进行转换中"
-        cp -ifv "$cur_hand" $start_path/win2xcur-tmp/cursors-tmp/pencil.ani
+        cp -ifv $(ls -a |grep -iw "$cur_hand") $start_path/win2xcur-tmp/cursors-tmp/pencil.ani
         win2xcur $start_path/win2xcur-tmp/cursors-tmp/pencil.ani -o $start_path/win2xcur-tmp/"$cur_name"/cursors
     fi
 
@@ -460,7 +484,7 @@ function start_win2xcur()
         cp $start_path_/win2xcur-source/circle $start_path/win2xcur-tmp/"$cur_name"/cursors
     else
         echo "cur_unavailiable存在,进行转换中"
-        cp -ifv "$cur_unavailiable" $start_path/win2xcur-tmp/cursors-tmp/circle.ani
+        cp -ifv $(ls -a |grep -iw "$cur_unavailiable") $start_path/win2xcur-tmp/cursors-tmp/circle.ani
         win2xcur $start_path/win2xcur-tmp/cursors-tmp/circle.ani -o $start_path/win2xcur-tmp/"$cur_name"/cursors
     fi
 
@@ -469,7 +493,7 @@ function start_win2xcur()
         cp $start_path_/win2xcur-source/bottom_side $start_path/win2xcur-tmp/"$cur_name"/cursors
     else
         echo "cur_vert存在,进行转换中"
-        cp -ifv "$cur_vert" $start_path/win2xcur-tmp/cursors-tmp/bottom_side.ani
+        cp -ifv $(ls -a |grep -iw "$cur_vert") $start_path/win2xcur-tmp/cursors-tmp/bottom_side.ani
         win2xcur $start_path/win2xcur-tmp/cursors-tmp/bottom_side.ani -o $start_path/win2xcur-tmp/"$cur_name"/cursors
     fi
 
@@ -478,7 +502,7 @@ function start_win2xcur()
         cp $start_path_/win2xcur-source/left_side $start_path/win2xcur-tmp/"$cur_name"/cursors
     else
         echo "cur_horz存在,进行转换中"
-        cp -ifv "$cur_horz" $start_path/win2xcur-tmp/cursors-tmp/left_side.ani
+        cp -ifv $(ls -a |grep -iw "$cur_horz") $start_path/win2xcur-tmp/cursors-tmp/left_side.ani
         win2xcur $start_path/win2xcur-tmp/cursors-tmp/left_side.ani -o $start_path/win2xcur-tmp/"$cur_name"/cursors
     fi
 
@@ -487,7 +511,7 @@ function start_win2xcur()
         cp $start_path_/win2xcur-source/bottom_right_corner $start_path/win2xcur-tmp/"$cur_name"/cursors
     else
         echo "cur_dgn1存在,进行转换中"
-        cp -ifv "$cur_dgn1" $start_path/win2xcur-tmp/cursors-tmp/bottom_right_corner.ani
+        cp -ifv $(ls -a |grep -iw "$cur_dgn1") $start_path/win2xcur-tmp/cursors-tmp/bottom_right_corner.ani
         win2xcur $start_path/win2xcur-tmp/cursors-tmp/bottom_right_corner.ani -o $start_path/win2xcur-tmp/"$cur_name"/cursors
     fi
 
@@ -496,7 +520,7 @@ function start_win2xcur()
         cp $start_path_/win2xcur-source/bottom_left_corner $start_path/win2xcur-tmp/"$cur_name"/cursors
     else
         echo "cur_dgn2存在,进行转换中"
-        cp -ifv "$cur_dgn2" $start_path/win2xcur-tmp/cursors-tmp/bottom_left_corner.ani
+        cp -ifv $(ls -a |grep -iw "$cur_dgn2") $start_path/win2xcur-tmp/cursors-tmp/bottom_left_corner.ani
         win2xcur $start_path/win2xcur-tmp/cursors-tmp/bottom_left_corner.ani -o $start_path/win2xcur-tmp/"$cur_name"/cursors
     fi
 
@@ -505,7 +529,7 @@ function start_win2xcur()
         cp $start_path_/win2xcur-source/move $start_path/win2xcur-tmp/"$cur_name"/cursors
     else
         echo "cur_move存在,进行转换中"
-        cp -ifv "$cur_move" $start_path/win2xcur-tmp/cursors-tmp/move.ani
+        cp -ifv $(ls -a |grep -iw "$cur_move") $start_path/win2xcur-tmp/cursors-tmp/move.ani
         win2xcur $start_path/win2xcur-tmp/cursors-tmp/move.ani -o $start_path/win2xcur-tmp/"$cur_name"/cursors
     fi
 
@@ -514,7 +538,7 @@ function start_win2xcur()
         cp $start_path_/win2xcur-source/dotbox $start_path/win2xcur-tmp/"$cur_name"/cursors
     else
         echo "cur_alternate存在,进行转换中"
-        cp -ifv "$cur_alternate" $start_path/win2xcur-tmp/cursors-tmp/dotbox.ani
+        cp -ifv $(ls -a |grep -iw "$cur_alternate") $start_path/win2xcur-tmp/cursors-tmp/dotbox.ani
         win2xcur $start_path/win2xcur-tmp/cursors-tmp/dotbox.ani -o $start_path/win2xcur-tmp/"$cur_name"/cursors
     fi
 
@@ -523,7 +547,7 @@ function start_win2xcur()
         cp $start_path_/win2xcur-source/hand2 $start_path/win2xcur-tmp/"$cur_name"/cursors
     else
         echo "cur_link存在,进行转换中"
-        cp -ifv "$cur_link" $start_path/win2xcur-tmp/cursors-tmp/hand2.ani
+        cp -ifv $(ls -a |grep -iw "$cur_link") $start_path/win2xcur-tmp/cursors-tmp/hand2.ani
         win2xcur $start_path/win2xcur-tmp/cursors-tmp/hand2.ani -o $start_path/win2xcur-tmp/"$cur_name"/cursors
     fi
 
@@ -531,7 +555,7 @@ function start_win2xcur()
     cp $start_path_/win2xcur-source/right_ptr $start_path/win2xcur-tmp/"$cur_name"/cursors
     cp $start_path_/win2xcur-source/vertical-text $start_path/win2xcur-tmp/"$cur_name"/cursors
     cp $start_path_/win2xcur-source/wayland-cursor $start_path/win2xcur-tmp/"$cur_name"/cursors
-
+    
     #为其他鼠标指针别名创建链接
     echo "创建鼠标指针链接"
     cd $start_path/win2xcur-tmp/"$cur_name"/cursors
@@ -693,8 +717,8 @@ else
     test_python="python3"
 fi
 
-if which "$test_python" > /dev/null
-    mainmenu
+if which "$test_python" > /dev/null ;then
+    start_win2xcur #mainmenu
 else
     echo "未安装python,请安装后重试"
     echo "正在退出"
