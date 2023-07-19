@@ -159,7 +159,7 @@ function test_source()
 function dl_source()
 {
     #创建资源文件夹
-    if [ ! -e $start_path_/win2xcur-source ]
+    if [ ! -e $start_path_/win2xcur-source ];then
         mkdir $start_path_/win2xcur-source
     fi
 
