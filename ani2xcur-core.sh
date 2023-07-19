@@ -558,6 +558,9 @@ function start_win2xcur()
     cp -fv $start_path_/win2xcur-source/right_ptr $start_path/win2xcur-tmp/"$cur_name"/cursors
     cp -fv $start_path_/win2xcur-source/vertical-text $start_path/win2xcur-tmp/"$cur_name"/cursors
     cp -fv $start_path_/win2xcur-source/wayland-cursor $start_path/win2xcur-tmp/"$cur_name"/cursors
+    cp -fv $start_path_/win2xcur-source/zoom-out $start_path/win2xcur-tmp/"$cur_name"/cursors
+    cp -fv $start_path_/win2xcur-source/zoom-in $start_path/win2xcur-tmp/"$cur_name"/cursors
+    cp -fv $start_path_/win2xcur-source/center_ptr $start_path/win2xcur-tmp/"$cur_name"/cursors
     
     #为其他鼠标指针别名创建链接
     echo "创建鼠标指针链接"
@@ -572,8 +575,12 @@ function start_win2xcur()
     ln -sv left_ptr grab
     ln -sv left_ptr openhand
     ln -sv left_ptr top_left_arrow
+    ln -sv left_ptr fcf21c00b30f7e3f83fe0dfd12e71cff
 
     ln -sv left_ptr_watch progress
+    ln -sv left_ptr_watch 00000000000000020006000e7e9ffc3f
+    ln -sv left_ptr_watch 08e8e1c95fe2fc01f976f1e063a24ccd
+    ln -sv left_ptr_watch 3ecb610c1bf2410f44200f48c40d3599
 
     ln -sv right_ptr draft_large
     ln -sv right_ptr draft_small
@@ -582,17 +589,25 @@ function start_win2xcur()
     ln -sv move all-scroll
     ln -sv move fleur
     ln -sv move size_all
+    ln -sv move 4498f0e0c1937ffe01fd06f973665830
+    ln -sv move 9081237383d90e509aa00f00170e968f
 
     ln -sv question_arrow dnd-ask
     ln -sv question_arrow help
     ln -sv question_arrow left_ptr_help
     ln -sv question_arrow whats_this
+    ln -sv question_arrow 5c6cd98b3f3ebcb1f9c7f1c204630408
+    ln -sv question_arrow d9ce0ab605698f320427677b458ad60b
 
     ln -sv xterm ibeam
     ln -sv xterm text
 
+    ln -sv wait watch
+
     ln -sv hand2 pointer
     ln -sv hand2 pointing_hand
+    ln -sv hand2 9d800788f1b08800ae810202380a0822
+    ln -sv hand2 e29285e634086352946a0e7090d73106
 
     ln -sv pencil copy
     ln -sv pencil dnd-copy
@@ -602,6 +617,12 @@ function start_win2xcur()
     ln -sv pencil pointer-move
     ln -sv pencil alias
     ln -sv pencil draft
+    ln -sv pencil 1081e37283d90000800003c07f3ef6bf
+    ln -sv pencil 3085a0e285430894940527032f8b26df
+    ln -sv pencil 6407b0e94181790501fd1e167b474872
+    ln -sv pencil 640fb0e74195791501fd1ed57b41487f
+    ln -sv pencil a2a266d0498c3104214a47bd64ab0fc8
+    ln -sv pencil b66166c04f8c3109214a4fbd64a50fc8
 
 
     ln -sv circle crossed_circle
@@ -612,6 +633,7 @@ function start_win2xcur()
     ln -sv circle no-drop
     ln -sv circle not-allowed
     ln -sv circle pirate
+    ln -sv circle 03b6e0fcb3499374a867c041f52298f0
 
     ln -sv cross crosshair
     ln -sv cross tcross
@@ -627,6 +649,7 @@ function start_win2xcur()
     ln -sv bottom_left_corner nesw-resize
     ln -sv bottom_left_corner size_bdiag
     ln -sv bottom_left_corner sw-resize
+    ln -sv bottom_left_corner fcf1c3c7cd4491d801f1e1c78f100000
 
     ln -sv bottom_right_corner bd_double_arrow
     ln -sv bottom_right_corner lr_angle
@@ -636,6 +659,7 @@ function start_win2xcur()
     ln -sv bottom_right_corner nwse-resize
     ln -sv bottom_right_corner se-resize
     ln -sv bottom_right_corner size_fdiag
+    ln -sv bottom_right_corner c7088f0f3e6c8088236ef8e1e3e70000
 
     ln -sv bottom_side bottom_tee
     ln -sv bottom_side plus
@@ -653,6 +677,9 @@ function start_win2xcur()
     ln -sv bottom_side s-resize
     ln -sv bottom_side up-arrow
     ln -sv bottom_side v_double_arrow
+    ln -sv bottom_side size_ver
+    ln -sv bottom_side 00008160000006810000408080010102
+    ln -sv bottom_side 2870a09082c31050810ffdffffe0204
 
     ln -sv left_side left_tee
     ln -sv left_side right_side
@@ -670,6 +697,9 @@ function start_win2xcur()
     ln -sv left_side split_h
     ln -sv left_side split_v
     ln -sv left_side w-resize
+    ln -sv left_side size_hor
+    ln -sv left_side 028006030e0e7ebffc7f7070c0600140
+    ln -sv left_side 14fef782d02440884392942c1120523 
 
     ln -sv dotbox dot_box_mask
     ln -sv dotbox draped_box
