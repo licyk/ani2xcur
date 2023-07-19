@@ -861,7 +861,7 @@ function start_win2xcur()
 
     rm -rfv $start_path/win2xcur-tmp
     echo "转换完成"
-    dialog --clear --title "ani2xcur" --msgbox "转换完成\n输入"
+    dialog --clear --title "ani2xcur" --msgbox "转换完成\n输入 sudo cp $start_path_/"$cur_name" /usr/share/icons 可将鼠标指针安装进系统" 20 60
 }
 
 ###############################################################################
