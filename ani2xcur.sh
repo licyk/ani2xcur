@@ -127,9 +127,9 @@ function install_win2xcur()
 
     install_win2xcur_=$(dialog --clear --title "win2xcur管理" --menu "请选择要进行的操作\n当前win2xcur安装状态:$win2xcur_info" 20 60 10 \
                 "1" "$win2xcur_install_menu" \
-                "2" "强制"$win2xcur_install_menu""
-                "2" "卸载" \
-                "3" "返回" \
+                "2" "强制"$win2xcur_install_menu"" \
+                "3" "卸载" \
+                "4" "返回" \
                 3>&1 1>&2 2>&3)
 
     if [ $? = 0 ];then
