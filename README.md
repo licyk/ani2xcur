@@ -1,5 +1,5 @@
 # ani2xcur
-一个将windows鼠标指针转换为linux鼠标指针的脚本，拥有TUI界面，转换核心基于win2xcur
+一个将windows鼠标指针转换为linux鼠标指针的脚本，拥有TUI界面，转换核心基于win2xcur  
 使用前需要安装python(3.6~3.9)，aria2，dialog。
 
 ## 使用方法：
