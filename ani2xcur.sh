@@ -250,6 +250,47 @@ function file_browser()
                 declare -g inf_file=$(ls -a | grep \.inf$)
 				start_win2xcur
 				file_browser
+            #文件解压缩功能，暂不支持自动检测编码，所以默认使用系统编码，如果压缩包是在windows系统中制作的，有可能会出现乱码
+            elif  [[ $file_select == *zip ]];then
+                7z x "$file_select"
+                file_browser
+            elif  [[ $file_select == *7z ]];then
+                7z x "$file_select"
+                file_browser
+            elif  [[ $file_select == *rar ]];then
+                unrar x "$file_select"
+                file_browser
+            elif  [[ $file_select == *tar ]];then
+                tar xvf "$file_select"
+                file_browser
+            elif  [[ $file_select == *tar.bz2 ]];then
+                tar xvjf "$file_select"
+                file_browser
+            elif  [[ $file_select == *tar.7z ]];then
+                7z e -so "$file_select" | tar xvf -
+                file_browser
+            elif  [[ $file_select == *tar.Z ]];then
+                tar xvf "$file_select"
+                file_browser
+            elif  [[ $file_select == *tar.gz ]];then
+                tar xvzf "$file_select"
+                file_browser
+            elif  [[ $file_select == *tar.lz ]];then
+                tar xvf "$file_select"
+                file_browser
+            elif  [[ $file_select == *tar.lzma ]];then
+                tar xvf "$file_select"
+                file_browser
+            elif  [[ $file_select == *tar.lzo ]];then
+                tar xvf "$file_select"
+                file_browser
+            elif  [[ $file_select == *tar.xz ]];then
+                tar xvJf "$file_select"
+                file_browser
+            elif  [[ $file_select == *tar.zst ]];then
+                tar -I zstd -xvf "$file_select"
+                file_browser
+            #不是脚本指定的格式
 			else
 				dialog --clear --title "文件管理" --msgbox "文件格式错误,请选择以inf后缀或ani后缀的文件" 25 60
 				file_browser

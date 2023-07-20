@@ -1,3 +1,4 @@
+#!/bin/bash
 inf_file=$(ls -a | grep \.inf$)
 start_path_=$(pwd)
 function mainmenu()

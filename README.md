@@ -29,7 +29,7 @@
 
     aria2c https://ghproxy.com/https://raw.githubusercontent.com/licyk/ani2xcur/main/ani2xcur-core.sh &&chmod +x ani2xcur-core.sh
 
-运行ani2xcur
+将ani2xcur-core脚本和鼠标指针放在一起(所在目录要有.inf文件)，运行
 
     ./ani2xcur-core.sh
 
