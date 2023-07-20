@@ -137,9 +137,9 @@ function install_win2xcur()
 
         if [ $install_win2xcur_ = 1 ];then
             if (dialog --clear --title "安装源选择" --yes-label "是" --no-label "否" --yesno "是否选择使用镜像源下载win2xcur" 20 60);then
-                pip install --upgrade --force-reinstall win2xcur -i https://mirrors.bfsu.edu.cn/pypi/web/simple
+                pip install --upgrade --force-reinstall numpy wand win2xcur -i https://mirrors.bfsu.edu.cn/pypi/web/simple
             else
-                pip install --upgrade --force-reinstall win2xcur -i https://pypi.python.org/simple
+                pip install --upgrade --force-reinstall numpy wand win2xcur -i https://pypi.python.org/simple
             fi
         fi
 

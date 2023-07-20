@@ -32,3 +32,8 @@
 运行ani2xcur
 
     ./ani2xcur-core.sh
+
+# 使用项目
+
+[win2xcur](https://github.com/quantum5/win2xcur)@quantum5  --- 转换核心  
+[breeze cursor](https://store.kde.org/p/999927)   --- 用作鼠标指针的补全

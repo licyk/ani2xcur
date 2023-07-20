@@ -29,9 +29,9 @@ function install_win2xcur()
     echo "2、镜像源"
     read -p "输入数字后回车==>" pip_pak_image
     if [ $pip_pak_image = 1 ];then
-        pip install win2xcur -i https://pypi.python.org/simple
+        pip install win2xcur numpy wand -i https://pypi.python.org/simple
     elif [ $pip_pak_image = 2 ];then
-        pip install win2xcur-i https://mirrors.bfsu.edu.cn/pypi/web/simple
+        pip install win2xcur numpy wand -i https://mirrors.bfsu.edu.cn/pypi/web/simple
     else
         echo "输入有误，请重试"
         test_win2xcur
