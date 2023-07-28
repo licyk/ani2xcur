@@ -917,7 +917,8 @@ else
     test_python="python3"
 fi
 
-if which "$test_python" > /dev/null ;then
+function ani2xcur_version()
+{
     dialog --clear --title "版本信息" --msgbox "ani2xcur:0.0.2\n
 python:$($test_python --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ') \n
 pip:$(pip --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ') \n
@@ -927,8 +928,25 @@ pip:$(pip --version | awk 'NR==1'| awk -F  ' ' ' {print  " " $2} ') \n
 Ctrl+C可中断指令的运行 \n
 第一次使用ani2xcur时先在主界面选择“关于”查看使用说明" 20 60
     mainmenu
+}
+
+if which "$test_python" > /dev/null ;then
+    test_num=$(( $test_num + 1 ))
 else
     echo "未安装python,请安装后重试"
-    echo "正在退出"
+fi
+
+if which dialog > /dev/null ;then
+    test_num=$(( $test_num + 1 ))
+else
+    echo "未安装dialog,请安装后重试"
+fi
+
+if [ $test_num -ge 2 ];then
+    echo "初始化ani2xcur完成"
+    echo "启动ani2xcur中"
+    ani2xcur_version
+else
+    echo "未满足依赖要求，正在退出"
     exit
 fi
