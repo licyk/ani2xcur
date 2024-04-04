@@ -17,7 +17,7 @@ mainmenu()
         $ani_dialog_height $ani_dialog_width $ani_dialog_menu_height \
         "1" "> 更新 Ani2xcur" \
         "2" "> 安装 win2xcur 核心" \
-        "2" "> 卸载 win2xcur 核心" \
+        "3" "> 卸载 win2xcur 核心" \
         "4" "> 进入文件浏览器" \
         "5" "> 退出 Ani2xcur" \
         3>&1 1>&2 2>&3)
@@ -45,9 +45,9 @@ mainmenu()
             2)
                 ani_echo "安装 wi2n2xcur 中"
                 if which win2xcur > /dev/null 2>&1; then
-                    ani_pip install numpy wand win2xcur --break-system-package --upgrade --force-reinstall
+                    ani_pip install numpy wand win2xcur --upgrade --force-reinstall
                 else
-                    ani_pip install numpy wand win2xcur --break-system-package --upgrade
+                    ani_pip install numpy wand win2xcur --upgrade
                 fi
                 if [ $? = 0 ];then
                     dialog --erase-on-exit \
@@ -81,8 +81,16 @@ mainmenu()
                 fi
                 ;;
             4)
-                cd ..
-                file_browser
+                if which win2xcur > /dev/null 2>&1 ;then
+                    cd ..
+                    file_browser
+                else
+                    dialog --erase-on-exit \
+                    --title "Ani2xcur" \
+                    --backtitle "文件浏览器" \
+                    --ok-label "确认" \
+                    --msgbox "win2xcur 核心未安装, 请安装后重试" $ani_dialog_height $ani_dialog_width
+                fi
                 ;;
             *)
                 break

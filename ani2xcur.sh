@@ -122,6 +122,12 @@ ani_launch_args_manager()
             --inf)
                 ani_launch_args_input="--inf"
                 ;;
+            --install-win2xcur)
+                install_win2xcur=1
+                ;;
+            --remove-win2xcur)
+                install_win2xcur=2
+                ;;
             *)
                 ani_unknown_args_echo $i
                 ;;
@@ -135,7 +141,7 @@ ani_args_help()
 {
     cat<<EOF
     使用: 
-        ./ani2xcur.sh --help [--set-python-path python_path] [--inf inf_file_path]
+        ./ani2xcur.sh --help [--set-python-path python_path] [--inf inf_file_path] [--install-win2xcur] [--remove-win2xcur]
     
     参数:
         --help
@@ -144,6 +150,10 @@ ani_args_help()
             指定 Python 解释器路径。推荐在 Python 虚拟环境中启动 Ani2xcur, 这将可省去使用启动参数指定 Python 路径
         --inf inf_file_path
             指定 inf 鼠标配置文件路径, 若路径有效, 则 Ani2xcur 将以命令行模式启动, 直接进行鼠标指针转换
+        --install-win2xcur
+            安装 win2xcur 核心
+        --remove-win2xcur
+            卸载 win2xcur 核心
 EOF
 }
 
@@ -164,12 +174,16 @@ set_inf_file_path()
 {
     if [ -z "$*" ];then
         ani_echo "inf 鼠标指针配置文件路径为空"
+        ani_echo "取消使用命令行模式, 将启动 Ani2xcur 界面"
+        sleep 3
     else
         if [ -f "$@" ];then
             ani_echo "指定 inf 鼠标指针配置文件路径: $@"
             inf_file_path=$@
         else
             ani_echo "inf 鼠标指针配置文件路径无效"
+            ani_echo "取消使用命令行模式, 将启动 Ani2xcur 界面"
+            sleep 3
         fi
     fi
 }
@@ -202,6 +216,7 @@ main()
     file_format_2="ani"
     file_format_3="cur"
     use_custom_python_path=1
+    install_win2xcur=0
     # pip镜像源设置
     export PIP_INDEX_URL="https://mirrors.cloud.tencent.com/pypi/simple"
     export PIP_EXTRA_INDEX_URL="https://mirror.baidu.com/pypi/simple https://mirrors.bfsu.edu.cn/pypi/web/simple https://mirror.nju.edu.cn/pypi/web/simple"
@@ -230,10 +245,10 @@ main()
     # 依赖检查
     if [ -z "$ani_python_path" ];then
         if python3 --version > /dev/null 2>&1 || python --version > /dev/null 2>&1 ;then # 判断是否有可用的python
-            if [ ! -z "$(python3 --version 2> /dev/null)" ];then
-                export ani_python_path=$(which python3)
-            elif [ ! -z "$(python --version 2> /dev/null)" ];then
+            if [ ! -z "$(python --version 2> /dev/null)" ];then
                 export ani_python_path=$(which python)
+            elif [ ! -z "$(python3 --version 2> /dev/null)" ];then
+                export ani_python_path=$(which python3)
             fi
         else
             missing_depend_info=1
@@ -249,6 +264,26 @@ main()
         fi
     fi
 
+    # 检测可用的pip命令
+    if [ ! -z "$VIRTUAL_ENV" ];then
+        if [ ! -z "$(python --version 2> /dev/null)" ];then
+            if ! python -m pip -V > /dev/null 2>&1 ;then
+                missing_depend_info=1
+                missing_depend="$missing_depend pip,"
+            fi
+        elif [ ! -z "$(python3 --version 2> /dev/null)" ];then
+            if ! python3 -m pip -V > /dev/null 2>&1 ;then
+                missing_depend_info=1
+                missing_depend="$missing_depend pip,"
+            fi
+        fi
+    else
+        if ! "$ani_python_path" -m pip -V > /dev/null 2>&1 ;then
+            missing_depend_info=1
+            missing_depend="$missing_depend pip,"
+        fi
+    fi
+
     if [ -z "$inf_file_path" ];then # 未指定inf文件路径
         if ! which dialog > /dev/null 2>&1; then
             missing_depend_info=1
@@ -260,6 +295,7 @@ main()
         else
             ani_echo "寻找 inf 鼠标指针配置文件"
             inf_file_path="$(dirname "$inf_file_path")/$(ls -a "$(dirname "$inf_file_path")" | grep \.inf$ | awk 'NR==1')"
+            ani_echo "inf 鼠标指针配置文件路径: $inf_file_path"
             ani_echo "以命令行模式启动 Ani2xcur"
         fi
         cli_mode=0
@@ -282,7 +318,7 @@ main()
 
 
 # 运行目录检查
-if && [ ! -d ".git" ] && [ ! -d "modules" ] && [ ! -f "modules/init.sh" ] && [ ! -d "source" ];then
+if [ ! -d ".git" ] && [ ! -d "modules" ] && [ ! -f "modules/init.sh" ] && [ ! -d "source" ];then
     ani_echo "检测到目录错误"
     ani_echo "请进入 Ani2xcur 目录里再运行 Ani2xcur"
     ani_echo "退出 Ani2xcur"

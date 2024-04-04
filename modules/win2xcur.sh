@@ -26,7 +26,15 @@ ani_win2xcur()
     local cur_list
     local inf_file=$1 # 鼠标指针配置文件
     local exec_time=$(date "+%Y-%m-%d-%H-%M-%S") # 执行结束时间
+    local inf_parent_path=$(dirname "$inf_file")
 
+    # 检测win2xcur核心是否安装
+    if ! which win2xcur > /dev/null 2>&1 ;then
+        ani_echo "win2xcur 核心未安装"
+        return 1
+    fi
+
+    # 获取配置文件
     ani_echo "读取配置文件: $inf_file"
     cat "$inf_file" | awk '/\[Strings\]/ { print; flag = 1; next } /=/ { if (flag == 1){ print } }' > "$start_path"/task/ani_info_origin.conf # 读取inf配置
     iconv -f GBK -t UTF-8 "$start_path"/task/ani_info_origin.conf > "$start_path"/task/ani_info.conf # 编码转换
@@ -63,105 +71,105 @@ ani_win2xcur()
     if [ -z "$cur_pointer" ];then # 不存在时从指针库复制
         cp -f "$start_path"/source/left_ptr "$start_path"/task/"$exec_time"/cursors
     else
-        cp -f "$(ls -a | grep -iw "$cur_pointer")" "$start_path"/task/cursors_tmp/left_ptr.ani # 复制鼠标指针到缓存文件夹
+        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_pointer")" "$start_path"/task/cursors_tmp/left_ptr.ani # 复制鼠标指针到缓存文件夹
         win2xcur "$start_path"/task/cursors_tmp/left_ptr.ani -o "$start_path"/task/"$exec_time"/cursors # 转换后存到鼠标指针文件夹
     fi
 
     if [ -z "$cur_help" ];then
         cp -f "$start_path"/source/question_arrow "$start_path"/task/"$exec_time"/cursors
     else
-        cp -f "$(ls -a | grep -iw "$cur_help")" "$start_path"/task/cursors_tmp/question_arrow.ani
+        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_help")" "$start_path"/task/cursors_tmp/question_arrow.ani
         win2xcur "$start_path"/task/cursors_tmp/question_arrow.ani -o "$start_path"/task/"$exec_time"/cursors
     fi
 
     if [ -z "$cur_work" ];then
         cp -f "$start_path"/source/left_ptr_watch "$start_path"/task/"$exec_time"/cursors
     else
-        cp -f "$(ls -a | grep -iw "$cur_work")" "$start_path"/task/cursors_tmp/left_ptr_watch.ani
+        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_work")" "$start_path"/task/cursors_tmp/left_ptr_watch.ani
         win2xcur "$start_path"/task/cursors_tmp/left_ptr_watch.ani -o "$start_path"/task/"$exec_time"/cursors
     fi
 
     if [ -z "$cur_busy" ];then
         cp -f "$start_path"/source/wait "$start_path"/task/"$exec_time"/cursors
     else
-        cp -f "$(ls -a | grep -iw "$cur_busy")" "$start_path"/task/cursors_tmp/wait.ani
+        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_busy")" "$start_path"/task/cursors_tmp/wait.ani
         win2xcur "$start_path"/task/cursors_tmp/wait.ani -o "$start_path"/task/"$exec_time"/cursors
     fi
 
     if [ -z "$cur_cross" ];then
         cp -f "$start_path"/source/cross "$start_path"/task/"$exec_time"/cursors
     else
-        cp -f "$(ls -a | grep -iw "$cur_cross")" "$start_path"/task/cursors_tmp/cross.ani
+        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_cross")" "$start_path"/task/cursors_tmp/cross.ani
         win2xcur "$start_path"/task/cursors_tmp/cross.ani -o "$start_path"/task/"$exec_time"/cursors
     fi
 
     if [ -z "$cur_text" ];then
         cp -f "$start_path"/source/xterm "$start_path"/task/"$exec_time"/cursors
     else
-        cp -f "$(ls -a | grep -iw "$cur_text")" "$start_path"/task/cursors_tmp/xterm.ani
+        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_text")" "$start_path"/task/cursors_tmp/xterm.ani
         win2xcur "$start_path"/task/cursors_tmp/xterm.ani -o "$start_path"/task/"$exec_time"/cursors
     fi
 
     if [ -z "$cur_hand" ];then
         cp -f "$start_path"/source/pencil "$start_path"/task/"$exec_time"/cursors
     else    
-        cp -f "$(ls -a | grep -iw "$cur_hand")" "$start_path"/task/cursors_tmp/pencil.ani
+        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_hand")" "$start_path"/task/cursors_tmp/pencil.ani
         win2xcur "$start_path"/task/cursors_tmp/pencil.ani -o "$start_path"/task/"$exec_time"/cursors
     fi
 
     if [ -z "$cur_unavailiable" ];then
         cp -f "$start_path"/source/circle "$start_path"/task/"$exec_time"/cursors
     else
-        cp -f "$(ls -a | grep -iw "$cur_unavailiable")" "$start_path"/task/cursors_tmp/circle.ani
+        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_unavailiable")" "$start_path"/task/cursors_tmp/circle.ani
         win2xcur "$start_path"/task/cursors_tmp/circle.ani -o "$start_path"/task/"$exec_time"/cursors
     fi
 
     if [ -z "$cur_vert" ];then
         cp -f "$start_path"/source/bottom_side "$start_path"/task/"$exec_time"/cursors
     else
-        cp -f "$(ls -a | grep -iw "$cur_vert")" "$start_path"/task/cursors_tmp/bottom_side.ani
+        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_vert")" "$start_path"/task/cursors_tmp/bottom_side.ani
         win2xcur "$start_path"/task/cursors_tmp/bottom_side.ani -o "$start_path"/task/"$exec_time"/cursors
     fi
 
     if [ -z "$cur_horz" ];then
         cp -f "$start_path"/source/left_side "$start_path"/task/"$exec_time"/cursors
     else
-        cp -f "$(ls -a | grep -iw "$cur_horz")" "$start_path"/task/cursors_tmp/left_side.ani
+        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_horz")" "$start_path"/task/cursors_tmp/left_side.ani
         win2xcur "$start_path"/task/cursors_tmp/left_side.ani -o "$start_path"/task/"$exec_time"/cursors
     fi
 
     if [ -z "$cur_dgn1" ];then
         cp -f "$start_path"/source/bottom_right_corner "$start_path"/task/"$exec_time"/cursors
     else
-        cp -f "$(ls -a | grep -iw "$cur_dgn1")" "$start_path"/task/cursors_tmp/bottom_right_corner.ani
+        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_dgn1")" "$start_path"/task/cursors_tmp/bottom_right_corner.ani
         win2xcur "$start_path"/task/cursors_tmp/bottom_right_corner.ani -o "$start_path"/task/"$exec_time"/cursors
     fi
 
     if [ -z "$cur_dgn2" ];then
         cp -f "$start_path"/source/bottom_left_corner "$start_path"/task/"$exec_time"/cursors
     else
-        cp -f "$(ls -a | grep -iw "$cur_dgn2")" "$start_path"/task/cursors_tmp/bottom_left_corner.ani
+        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_dgn2")" "$start_path"/task/cursors_tmp/bottom_left_corner.ani
         win2xcur "$start_path"/task/cursors_tmp/bottom_left_corner.ani -o "$start_path"/task/"$exec_time"/cursors
     fi
 
     if [ -z "$cur_move" ];then
         cp -f "$start_path"/source/move "$start_path"/task/"$exec_time"/cursors
     else
-        cp -f "$(ls -a | grep -iw "$cur_move")" "$start_path"/task/cursors_tmp/move.ani
+        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_move")" "$start_path"/task/cursors_tmp/move.ani
         win2xcur "$start_path"/task/cursors_tmp/move.ani -o "$start_path"/task/"$exec_time"/cursors
     fi
 
     if [ -z "$cur_alternate" ];then
         cp -f "$start_path"/source/dotbox "$start_path"/task/"$exec_time"/cursors
     else
-        cp -f "$(ls -a | grep -iw "$cur_alternate")" "$start_path"/task/cursors_tmp/dotbox.ani
+        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_alternate")" "$start_path"/task/cursors_tmp/dotbox.ani
         win2xcur "$start_path"/task/cursors_tmp/dotbox.ani -o "$start_path"/task/"$exec_time"/cursors
     fi
 
     if [ -z "$cur_link" ];then
         cp -f "$start_path"/source/hand2 "$start_path"/task/"$exec_time"/cursors
     else
-        cp -f "$(ls -a | grep -iw "$cur_link")" "$start_path"/task/cursors_tmp/hand2.ani
+        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_link")" "$start_path"/task/cursors_tmp/hand2.ani
         win2xcur "$start_path"/task/cursors_tmp/hand2.ani -o "$start_path"/task/"$exec_time"/cursors
     fi
 
@@ -361,7 +369,7 @@ ani_win2xcur()
     echo "# 鼠标指针安装" > "$start_path"/output/"$exec_time"/install.sh
     echo "echo \"将鼠标指针安装至 ~/.icons\"" >> "$start_path"/output/"$exec_time"/install.sh
     echo "cp -r ./$cur_name ~/.icons" >> "$start_path"/output/"$exec_time"/install.sh
-    echo "echo \"安装完成, 可使用 \"gsettings set org.gnome.desktop.interface cursor-theme \"$cur_name\" 启用该鼠标指针\"" >> "$start_path"/output/"$exec_time"/install.sh
+    echo "echo \"安装完成, 可使用 \\\"gsettings set org.gnome.desktop.interface cursor-theme \\\"$cur_name\\\"\\\" 启用该鼠标指针\"" >> "$start_path"/output/"$exec_time"/install.sh
 
     ani_echo "转换结束, 鼠标指针文件保存路径: "$start_path"/output/"$exec_time""
 }
