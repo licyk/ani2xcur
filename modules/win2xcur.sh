@@ -162,105 +162,105 @@ ani_win2xcur_start()
     if [ -z "$cur_pointer" ];then # 不存在时从指针库复制
         cp -f "$start_path"/source/left_ptr "$start_path"/task/"$exec_time"/cursors
     else
-        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_pointer")" "$start_path"/task/cursors_tmp/left_ptr.ani # 复制鼠标指针到缓存文件夹
+        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_pointer" | awk 'NR==1 {print}')" "$start_path"/task/cursors_tmp/left_ptr.ani # 复制鼠标指针到缓存文件夹
         ani_win2xcur "$start_path"/task/cursors_tmp/left_ptr.ani -o "$start_path"/task/"$exec_time"/cursors # 转换后存到鼠标指针文件夹
     fi
 
     if [ -z "$cur_help" ];then
         cp -f "$start_path"/source/question_arrow "$start_path"/task/"$exec_time"/cursors
     else
-        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_help")" "$start_path"/task/cursors_tmp/question_arrow.ani
+        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_help" | awk 'NR==1 {print}')" "$start_path"/task/cursors_tmp/question_arrow.ani
         ani_win2xcur "$start_path"/task/cursors_tmp/question_arrow.ani -o "$start_path"/task/"$exec_time"/cursors
     fi
 
     if [ -z "$cur_work" ];then
         cp -f "$start_path"/source/left_ptr_watch "$start_path"/task/"$exec_time"/cursors
     else
-        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_work")" "$start_path"/task/cursors_tmp/left_ptr_watch.ani
+        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_work" | awk 'NR==1 {print}')" "$start_path"/task/cursors_tmp/left_ptr_watch.ani
         ani_win2xcur "$start_path"/task/cursors_tmp/left_ptr_watch.ani -o "$start_path"/task/"$exec_time"/cursors
     fi
 
     if [ -z "$cur_busy" ];then
         cp -f "$start_path"/source/wait "$start_path"/task/"$exec_time"/cursors
     else
-        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_busy")" "$start_path"/task/cursors_tmp/wait.ani
+        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_busy" | awk 'NR==1 {print}')" "$start_path"/task/cursors_tmp/wait.ani
         ani_win2xcur "$start_path"/task/cursors_tmp/wait.ani -o "$start_path"/task/"$exec_time"/cursors
     fi
 
     if [ -z "$cur_cross" ];then
         cp -f "$start_path"/source/cross "$start_path"/task/"$exec_time"/cursors
     else
-        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_cross")" "$start_path"/task/cursors_tmp/cross.ani
+        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_cross" | awk 'NR==1 {print}')" "$start_path"/task/cursors_tmp/cross.ani
         ani_win2xcur "$start_path"/task/cursors_tmp/cross.ani -o "$start_path"/task/"$exec_time"/cursors
     fi
 
     if [ -z "$cur_text" ];then
         cp -f "$start_path"/source/xterm "$start_path"/task/"$exec_time"/cursors
     else
-        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_text")" "$start_path"/task/cursors_tmp/xterm.ani
+        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_text" | awk 'NR==1 {print}')" "$start_path"/task/cursors_tmp/xterm.ani
         ani_win2xcur "$start_path"/task/cursors_tmp/xterm.ani -o "$start_path"/task/"$exec_time"/cursors
     fi
 
     if [ -z "$cur_hand" ];then
         cp -f "$start_path"/source/pencil "$start_path"/task/"$exec_time"/cursors
     else
-        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_hand")" "$start_path"/task/cursors_tmp/pencil.ani
+        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_hand" | awk 'NR==1 {print}')" "$start_path"/task/cursors_tmp/pencil.ani
         ani_win2xcur "$start_path"/task/cursors_tmp/pencil.ani -o "$start_path"/task/"$exec_time"/cursors
     fi
 
     if [ -z "$cur_unavailiable" ];then
         cp -f "$start_path"/source/circle "$start_path"/task/"$exec_time"/cursors
     else
-        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_unavailiable")" "$start_path"/task/cursors_tmp/circle.ani
+        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_unavailiable" | awk 'NR==1 {print}')" "$start_path"/task/cursors_tmp/circle.ani
         ani_win2xcur "$start_path"/task/cursors_tmp/circle.ani -o "$start_path"/task/"$exec_time"/cursors
     fi
 
     if [ -z "$cur_vert" ];then
         cp -f "$start_path"/source/bottom_side "$start_path"/task/"$exec_time"/cursors
     else
-        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_vert")" "$start_path"/task/cursors_tmp/bottom_side.ani
+        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_vert" | awk 'NR==1 {print}')" "$start_path"/task/cursors_tmp/bottom_side.ani
         ani_win2xcur "$start_path"/task/cursors_tmp/bottom_side.ani -o "$start_path"/task/"$exec_time"/cursors
     fi
 
     if [ -z "$cur_horz" ];then
         cp -f "$start_path"/source/left_side "$start_path"/task/"$exec_time"/cursors
     else
-        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_horz")" "$start_path"/task/cursors_tmp/left_side.ani
+        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_horz" | awk 'NR==1 {print}')" "$start_path"/task/cursors_tmp/left_side.ani
         ani_win2xcur "$start_path"/task/cursors_tmp/left_side.ani -o "$start_path"/task/"$exec_time"/cursors
     fi
 
     if [ -z "$cur_dgn1" ];then
         cp -f "$start_path"/source/bottom_right_corner "$start_path"/task/"$exec_time"/cursors
     else
-        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_dgn1")" "$start_path"/task/cursors_tmp/bottom_right_corner.ani
+        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_dgn1" | awk 'NR==1 {print}')" "$start_path"/task/cursors_tmp/bottom_right_corner.ani
         ani_win2xcur "$start_path"/task/cursors_tmp/bottom_right_corner.ani -o "$start_path"/task/"$exec_time"/cursors
     fi
 
     if [ -z "$cur_dgn2" ];then
         cp -f "$start_path"/source/bottom_left_corner "$start_path"/task/"$exec_time"/cursors
     else
-        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_dgn2")" "$start_path"/task/cursors_tmp/bottom_left_corner.ani
+        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_dgn2" | awk 'NR==1 {print}')" "$start_path"/task/cursors_tmp/bottom_left_corner.ani
         ani_win2xcur "$start_path"/task/cursors_tmp/bottom_left_corner.ani -o "$start_path"/task/"$exec_time"/cursors
     fi
 
     if [ -z "$cur_move" ];then
         cp -f "$start_path"/source/move "$start_path"/task/"$exec_time"/cursors
     else
-        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_move")" "$start_path"/task/cursors_tmp/move.ani
+        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_move" | awk 'NR==1 {print}')" "$start_path"/task/cursors_tmp/move.ani
         ani_win2xcur "$start_path"/task/cursors_tmp/move.ani -o "$start_path"/task/"$exec_time"/cursors
     fi
 
     if [ -z "$cur_alternate" ];then
         cp -f "$start_path"/source/dotbox "$start_path"/task/"$exec_time"/cursors
     else
-        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_alternate")" "$start_path"/task/cursors_tmp/dotbox.ani
+        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_alternate" | awk 'NR==1 {print}')" "$start_path"/task/cursors_tmp/dotbox.ani
         ani_win2xcur "$start_path"/task/cursors_tmp/dotbox.ani -o "$start_path"/task/"$exec_time"/cursors
     fi
 
     if [ -z "$cur_link" ];then
         cp -f "$start_path"/source/hand2 "$start_path"/task/"$exec_time"/cursors
     else
-        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_link")" "$start_path"/task/cursors_tmp/hand2.ani
+        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_link" | awk 'NR==1 {print}')" "$start_path"/task/cursors_tmp/hand2.ani
         ani_win2xcur "$start_path"/task/cursors_tmp/hand2.ani -o "$start_path"/task/"$exec_time"/cursors
     fi
 
