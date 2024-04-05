@@ -102,6 +102,9 @@ ani_launch_args_manager()
                 --inf)
                     set_inf_file_path $ani_launch_args
                     ;;
+                --win2xcur-path)
+                    set_win2xcur_path $ani_launch_args
+                    ;;
             esac
             ani_launch_args_input= # 清除选项,留给下一次判断
         fi
@@ -118,6 +121,9 @@ ani_launch_args_manager()
                 ;;
             --set-python-path)
                 ani_launch_args_input="--set-python-path"
+                ;;
+            --win2xcur-path)
+                ani_launch_args_input="--win2xcur-path"
                 ;;
             --inf)
                 ani_launch_args_input="--inf"
@@ -141,13 +147,15 @@ ani_args_help()
 {
     cat<<EOF
     使用: 
-        ./ani2xcur.sh --help [--set-python-path python_path] [--inf inf_file_path] [--install-win2xcur] [--remove-win2xcur]
+        ./ani2xcur.sh [--help] [--set-python-path python_path] [--win2xcur-path win2xcur_path] [--inf inf_file_path] [--install-win2xcur] [--remove-win2xcur]
     
     参数:
         --help
             显示 Ani2xcur 启动参数帮助
         --set-python-path python_path
             指定 Python 解释器路径。推荐在 Python 虚拟环境中启动 Ani2xcur, 这将可省去使用启动参数指定 Python 路径
+        --win2xcur-path win2xcur_path
+            指定 win2xcur 的路径
         --inf inf_file_path
             指定 inf 鼠标配置文件路径, 若路径有效, 则 Ani2xcur 将以命令行模式启动, 直接进行鼠标指针转换
         --install-win2xcur
@@ -163,6 +171,7 @@ set_python_path()
     if [ -z "$*" ];then
         ani_echo "输入 Python 解释器路径为空"
         ani_echo "使用系统默认 Python"
+        sleep 3
     else
         ani_echo "设置 Python 解释器路径: $@"
         ani_python_path=$@
@@ -177,7 +186,7 @@ set_inf_file_path()
         ani_echo "取消使用命令行模式, 将启动 Ani2xcur 界面"
         sleep 3
     else
-        if [ -f "$@" ];then
+        if [ -f "$*" ];then
             ani_echo "指定 inf 鼠标指针配置文件路径: $@"
             inf_file_path=$@
         else
@@ -185,6 +194,25 @@ set_inf_file_path()
             ani_echo "取消使用命令行模式, 将启动 Ani2xcur 界面"
             sleep 3
         fi
+    fi
+}
+
+# 设置win2xcur路径
+set_win2xcur_path()
+{
+    if [ -z "$*" ];then
+        ani_echo "win2xcur 路径为空"
+        ani_echo "将使用默认值"
+        win2xcur_path="win2xcur"
+        sleep 3
+    elif which "$@" > /dev/null 2>&1; then
+        ani_echo "使用自定义 win2xcur 路径: $@"
+        win2xcur_path=$@
+    else
+        ani_echo "win2xcur 路径无效"
+        ani_echo "将使用默认值"
+        win2xcur_path="win2xcur"
+        sleep 3
     fi
 }
 
@@ -205,6 +233,7 @@ ani_unknown_args_echo()
 # 主程序
 main()
 {
+    ani2xcur_ver="0.0.4"
     local cli_mode=1
     local missing_depend_info=0
     local missing_depend
@@ -282,6 +311,13 @@ main()
             missing_depend_info=1
             missing_depend="$missing_depend pip,"
         fi
+    fi
+
+    # 检测自定义win2xcur路径
+    if [ -z "$win2xcur_path" ];then
+        win2xcur_path="win2xcur"
+    elif ! which "$win2xcur_path" > /dev/null 2>&1; then
+        win2xcur_path="win2xcur"
     fi
 
     if [ -z "$inf_file_path" ];then # 未指定inf文件路径

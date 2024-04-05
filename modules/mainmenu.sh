@@ -13,7 +13,7 @@ mainmenu()
         --title "Ani2xcur" \
         --backtitle "主界面" \
         --ok-label "确认" --cancel-label "退出" \
-        --menu "请选择 Ani2xcur 的功能\n当前 Win2xcur 安装状态: $(which win2xcur > /dev/null 2>&1 && echo "已安装" || echo "未安装")\n当前使用 Python : $([ $use_custom_python_path = 0 ] && echo $ani_python_path || [ ! -z "$VIRTUAL_ENV" ] && echo "虚拟环境" || echo "系统环境")" \
+        --menu "请选择 Ani2xcur 的功能\n当前 win2xcur 安装状态: $(which "$win2xcur_path" > /dev/null 2>&1 && echo "已安装" || echo "未安装")\n当前使用 Python : $([ $use_custom_python_path = 0 ] && echo $ani_python_path || [ ! -z "$VIRTUAL_ENV" ] && echo "虚拟环境" || echo "系统环境")\n当前 Ani2xcur 版本: $ani2xcur_ver" \
         $ani_dialog_height $ani_dialog_width $ani_dialog_menu_height \
         "1" "> 更新 Ani2xcur" \
         "2" "> 安装 win2xcur 核心" \
@@ -81,7 +81,7 @@ mainmenu()
                 fi
                 ;;
             4)
-                if which win2xcur > /dev/null 2>&1 ;then
+                if which "$win2xcur_path" > /dev/null 2>&1 ;then
                     cd ..
                     file_browser
                 else

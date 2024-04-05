@@ -36,7 +36,7 @@ esac
 # 启动
 if [ $cli_mode = 0 ];then
     ani_echo "启动转换"
-    ani_win2xcur "$inf_file_path"
+    ani_win2xcur_start "$inf_file_path"
     ani_echo "转换完成"
     ani_echo "退出 Ani2xcur"
 else

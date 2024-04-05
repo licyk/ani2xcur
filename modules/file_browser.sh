@@ -41,20 +41,20 @@ file_browser()
             elif [[ -f $file_select ]];then # 选择的是文件
                 case $file_select in
                     *.$file_format_1) # 选择的文件是指定格式
-                        ani_win2xcur "$(pwd)/$file_select"
+                        ani_win2xcur_start "$(pwd)/$file_select"
                         dialog --erase-on-exit \
                             --title "Ani2xcur" \
                             --backtitle "鼠标指针转换结果" \
                             --ok-label "确认" \
-                            --msgbox "鼠标指针转换完成, 可在 ${start_path}/output 文件夹中查看" $ani_dialog_height $ani_dialog_width
+                            --msgbox "鼠标指针转换完成, 可在 ${start_path}/output/${exec_time} 文件夹中查看" $ani_dialog_height $ani_dialog_width
                         ;;
                     *.$file_format_2|*.$file_format_3) # 选择的文件是指定格式
-                        ani_win2xcur "$(pwd)/$(ls -a | grep \.inf$ | awk 'NR==1')"
+                        ani_win2xcur_start "$(pwd)/$(ls -a | grep \.inf$ | awk 'NR==1')"
                         dialog --erase-on-exit \
                             --title "Ani2xcur" \
                             --backtitle "鼠标指针转换结果" \
                             --ok-label "确认" \
-                            --msgbox "鼠标指针转换完成, 可在 ${start_path}/output 文件夹中查看" $ani_dialog_height $ani_dialog_width
+                            --msgbox "鼠标指针转换完成, 可在 ${start_path}/output/${exec_time} 文件夹中查看" $ani_dialog_height $ani_dialog_width
                         ;;
                     *.zip|*.7z) # 文件解压缩功能，暂不支持自动检测编码，所以默认使用系统编码，如果压缩包是在windows系统中制作的，有可能会出现乱码
                         7z x "$file_select"

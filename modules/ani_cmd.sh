@@ -34,3 +34,9 @@ ani_pip()
         "$ani_python_path" -m pip "$@"
     fi
 }
+
+# win2xcur命令
+ani_win2xcur()
+{
+    "$win2xcur_path" "$@"
+}
