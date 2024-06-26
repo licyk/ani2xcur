@@ -15,7 +15,7 @@ file_browser()
                 --menu "使用方向键和回车键进行选择\n注:\n1、名称后面带有\"/\"的是文件夹\n2、文件和文件夹按时间排序, 最新的排在前面\n当前路径: $(pwd)" \
                 $ani_dialog_height $ani_dialog_width $ani_dialog_menu_height \
                 "-->返回主界面" "X" \
-                $(ls -lhFt | awk -F ' ' ' {print $9 " " $5 } ') \
+                $(ls -lhFt --time-style=+"%Y-%m-%d" | awk -F ' ' ' {print $7 " " $5 } ') \
                 3>&1 1>&2 2>&3)
         else
             file_select=$(dialog --erase-on-exit \
@@ -25,7 +25,7 @@ file_browser()
                 $ani_dialog_height $ani_dialog_width $ani_dialog_menu_height \
                 "-->返回上一个目录" "X" \
                 "-->返回主界面" "X" \
-                $(ls -lhFt | awk -F ' ' ' {print $9 " " $5 } ') \
+                $(ls -lhFt --time-style=+"%Y-%m-%d" | awk -F ' ' ' {print $7 " " $5 } ') \
                 3>&1 1>&2 2>&3)
         fi
 

@@ -248,7 +248,7 @@ main()
     install_win2xcur=0
     # pip镜像源设置
     export PIP_INDEX_URL="https://mirrors.cloud.tencent.com/pypi/simple"
-    export PIP_EXTRA_INDEX_URL="https://mirror.baidu.com/pypi/simple https://mirrors.bfsu.edu.cn/pypi/web/simple https://mirror.nju.edu.cn/pypi/web/simple"
+    export PIP_EXTRA_INDEX_URL="https://mirror.baidu.com/pypi/simple"
     # 设置dialog界面的大小
     export ani_dialog_menu_height=10 #dialog高度条目
 
