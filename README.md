@@ -1,10 +1,19 @@
 # ani2xcur
 ## 简介
-一个将 Windows鼠标指针转换为 Linux 鼠标指针的脚本，基于GNU 项目的 Dialog 实现显示界面，转换核心基于 win2xcur
+一个将 Windows 鼠标指针转换为 Linux 鼠标指针的脚本，基于 GNU 项目的 Dialog 实现显示界面，转换核心基于 win2xcur
 
 ## 环境要求
 - Python（3.6 ~ 3.9）
 - Dialog
+
+>[!NOTE]  
+>Python 的版本推荐 3.9。这里推荐一些 Python 版本管理器。  
+>1. [Pyenv](https://github.com/pyenv/pyenv)（Windows 系统上使用 [Pyenv-Win](https://github.com/pyenv-win/pyenv-win)）
+>2. [MicroMamba](https://mamba.readthedocs.io/en/latest/installation/micromamba-installation.html)
+>3. [MiniConda](https://docs.anaconda.com/free/miniconda/index.html)
+>
+>在 Linux 上安装指定版本的 Python 并不方便，所以可以用上面的 Python 版本管理器安装 Python，并在启动 Ani2xcur 时加上`--set-python-path`启动参数来指定 Python 的路径。  
+>具体方法可参考该文档：[《在 Linux 上使用 Python 版本管理器安装 Python》](https://github.com/licyk/README-collection/blob/main/term-sd/README_install_python_on_linux.md)
 
 ## 安装
 - 1、克隆项目

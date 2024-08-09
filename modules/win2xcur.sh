@@ -42,257 +42,257 @@ ani_win2xcur_start()
     local cur_pin_n
     local cur_person_n
     local inf_file=$1 # 鼠标指针配置文件
-    local inf_parent_path=$(dirname "$inf_file")
-    exec_time=$(date "+%Y-%m-%d-%H-%M-%S") # 执行结束时间
+    local inf_parent_path=$(dirname "${inf_file}")
+    EXEC_TIME=$(date "+%Y-%m-%d-%H-%M-%S") # 执行结束时间
 
     # 检测win2xcur核心是否安装
-    if ! which "$win2xcur_path" > /dev/null 2>&1 ;then
+    if ! which "${WIN2XCUR_PATH}" &> /dev/null ;then
         ani_echo "win2xcur 核心未安装"
         return 1
     fi
 
     # 获取配置文件
     ani_echo "读取配置文件: $inf_file"
-    cat "$inf_file" | awk '/\[Strings\]/ { print; flag = 1; next } /=/ { if (flag == 1){ print } }' > "$start_path"/task/ani_info_origin.conf # 读取inf配置
-    iconv -f GBK -t UTF-8 "$start_path"/task/ani_info_origin.conf > "$start_path"/task/ani_info.conf # 编码转换
-    rm -rf "$start_path"/task/ani_info_origin.conf
+    cat "$inf_file" | awk '/\[Strings\]/ { print; flag = 1; next } /=/ { if (flag == 1){ print } }' > "${START_PATH}"/task/ani_info_origin.conf # 读取inf配置
+    iconv -f GBK -t UTF-8 "${START_PATH}"/task/ani_info_origin.conf > "${START_PATH}"/task/ani_info.conf # 编码转换
+    rm -rf "${START_PATH}"/task/ani_info_origin.conf
 
     #读取各个鼠标指针参数(文件名称)
     # 获取参数所在行数
-    cur_name_n=$(cat "$start_path"/task/ani_info.conf | awk '{print $1}' | grep -nE "SCHEME_NAME" | awk -F ':' '{print $NR}')
-    cur_pointer_n=$(cat "$start_path"/task/ani_info.conf | awk '{print $1}' | grep -nE "pointer" | awk -F ':' '{print $NR}')
-    cur_help_n=$(cat "$start_path"/task/ani_info.conf | awk '{print $1}' | grep -nE "help" | awk -F ':' '{print $NR}')
-    cur_work_n=$(cat "$start_path"/task/ani_info.conf | awk '{print $1}' | grep -nE "work" | awk -F ':' '{print $NR}')
-    cur_busy_n=$(cat "$start_path"/task/ani_info.conf | awk '{print $1}' | grep -nE "busy" | awk -F ':' '{print $NR}')
-    cur_cross_n=$(cat "$start_path"/task/ani_info.conf | awk '{print $1}' | grep -nE "cross" | awk -F ':' '{print $NR}')
-    cur_text_n=$(cat "$start_path"/task/ani_info.conf | awk '{print $1}' | grep -nE "text" | awk -F ':' '{print $NR}')
-    cur_hand_n=$(cat "$start_path"/task/ani_info.conf | awk '{print $1}' | grep -nE "hand" | awk -F ':' '{print $NR}')
-    cur_unavailiable_n=$(cat "$start_path"/task/ani_info.conf | awk '{print $1}' | grep -nE "unavailiable" | awk -F ':' '{print $NR}')
-    cur_vert_n=$(cat "$start_path"/task/ani_info.conf | awk '{print $1}' | grep -nE "vert" | awk -F ':' '{print $NR}')
-    cur_horz_n=$(cat "$start_path"/task/ani_info.conf | awk '{print $1}' | grep -nE "horz" | awk -F ':' '{print $NR}')
-    cur_dgn1_n=$(cat "$start_path"/task/ani_info.conf | awk '{print $1}' | grep -nE "dgn1" | awk -F ':' '{print $NR}')
-    cur_dgn2_n=$(cat "$start_path"/task/ani_info.conf | awk '{print $1}' | grep -nE "dgn2" | awk -F ':' '{print $NR}')
-    cur_move_n=$(cat "$start_path"/task/ani_info.conf | awk '{print $1}' | grep -nE "move" | awk -F ':' '{print $NR}')
-    cur_alternate_n=$(cat "$start_path"/task/ani_info.conf | awk '{print $1}' | grep -nE "alternate" | awk -F ':' '{print $NR}')
-    cur_link_n=$(cat "$start_path"/task/ani_info.conf | awk '{print $1}' | grep -nE "link" | awk -F ':' '{print $NR}')
-    cur_pin_n=$(cat "$start_path"/task/ani_info.conf | awk '{print $1}' | grep -nE "pin" | awk -F ':' '{print $NR}')
-    cur_person_n=$(cat "$start_path"/task/ani_info.conf | awk '{print $1}' | grep -nE "person" | awk -F ':' '{print $NR}')
+    cur_name_n=$(cat "${START_PATH}"/task/ani_info.conf | awk '{print $1}' | grep -nE "SCHEME_NAME" | awk -F ':' '{print $NR}')
+    cur_pointer_n=$(cat "${START_PATH}"/task/ani_info.conf | awk '{print $1}' | grep -nE "pointer" | awk -F ':' '{print $NR}')
+    cur_help_n=$(cat "${START_PATH}"/task/ani_info.conf | awk '{print $1}' | grep -nE "help" | awk -F ':' '{print $NR}')
+    cur_work_n=$(cat "${START_PATH}"/task/ani_info.conf | awk '{print $1}' | grep -nE "work" | awk -F ':' '{print $NR}')
+    cur_busy_n=$(cat "${START_PATH}"/task/ani_info.conf | awk '{print $1}' | grep -nE "busy" | awk -F ':' '{print $NR}')
+    cur_cross_n=$(cat "${START_PATH}"/task/ani_info.conf | awk '{print $1}' | grep -nE "cross" | awk -F ':' '{print $NR}')
+    cur_text_n=$(cat "${START_PATH}"/task/ani_info.conf | awk '{print $1}' | grep -nE "text" | awk -F ':' '{print $NR}')
+    cur_hand_n=$(cat "${START_PATH}"/task/ani_info.conf | awk '{print $1}' | grep -nE "hand" | awk -F ':' '{print $NR}')
+    cur_unavailiable_n=$(cat "${START_PATH}"/task/ani_info.conf | awk '{print $1}' | grep -nE "unavailiable" | awk -F ':' '{print $NR}')
+    cur_vert_n=$(cat "${START_PATH}"/task/ani_info.conf | awk '{print $1}' | grep -nE "vert" | awk -F ':' '{print $NR}')
+    cur_horz_n=$(cat "${START_PATH}"/task/ani_info.conf | awk '{print $1}' | grep -nE "horz" | awk -F ':' '{print $NR}')
+    cur_dgn1_n=$(cat "${START_PATH}"/task/ani_info.conf | awk '{print $1}' | grep -nE "dgn1" | awk -F ':' '{print $NR}')
+    cur_dgn2_n=$(cat "${START_PATH}"/task/ani_info.conf | awk '{print $1}' | grep -nE "dgn2" | awk -F ':' '{print $NR}')
+    cur_move_n=$(cat "${START_PATH}"/task/ani_info.conf | awk '{print $1}' | grep -nE "move" | awk -F ':' '{print $NR}')
+    cur_alternate_n=$(cat "${START_PATH}"/task/ani_info.conf | awk '{print $1}' | grep -nE "alternate" | awk -F ':' '{print $NR}')
+    cur_link_n=$(cat "${START_PATH}"/task/ani_info.conf | awk '{print $1}' | grep -nE "link" | awk -F ':' '{print $NR}')
+    cur_pin_n=$(cat "${START_PATH}"/task/ani_info.conf | awk '{print $1}' | grep -nE "pin" | awk -F ':' '{print $NR}')
+    cur_person_n=$(cat "${START_PATH}"/task/ani_info.conf | awk '{print $1}' | grep -nE "person" | awk -F ':' '{print $NR}')
 
     # 获取对应文件名称
-    if [ ! -z "$cur_name_n" ];then
-        cur_name=$(cat "$start_path"/task/ani_info.conf | awk 'NR=='$cur_name_n'' | grep -E "SCHEME_NAME" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
+    if [[ ! -z "${cur_name_n}" ]]; then
+        cur_name=$(cat "${START_PATH}"/task/ani_info.conf | awk 'NR=='${cur_name_n}'' | grep -E "SCHEME_NAME" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
     fi
 
-    if [ ! -z "$cur_pointer_n" ];then
-        cur_pointer=$(cat "$start_path"/task/ani_info.conf | awk 'NR=='$cur_pointer_n'' | grep -E "pointer" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
+    if [[ ! -z "${cur_pointer_n}" ]]; then
+        cur_pointer=$(cat "${START_PATH}"/task/ani_info.conf | awk 'NR=='${cur_pointer_n}'' | grep -E "pointer" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
     fi
 
-    if [ ! -z "$cur_help_n" ];then
-        cur_help=$(cat "$start_path"/task/ani_info.conf | awk 'NR=='$cur_help_n'' | grep -E "help" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
+    if [[ ! -z "${cur_help_n}" ]]; then
+        cur_help=$(cat "${START_PATH}"/task/ani_info.conf | awk 'NR=='${cur_help_n}'' | grep -E "help" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
     fi
 
-    if [ ! -z "$cur_work_n" ];then
-        cur_work=$(cat "$start_path"/task/ani_info.conf | awk 'NR=='$cur_work_n'' | grep -E "work" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
+    if [[ ! -z "${cur_work_n}" ]]; then
+        cur_work=$(cat "${START_PATH}"/task/ani_info.conf | awk 'NR=='${cur_work_n}'' | grep -E "work" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
     fi
 
-    if [ ! -z "$cur_busy_n" ];then
-        cur_busy=$(cat "$start_path"/task/ani_info.conf | awk 'NR=='$cur_busy_n'' | grep -E "busy" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
+    if [[ ! -z "${cur_busy_n}" ]]; then
+        cur_busy=$(cat "${START_PATH}"/task/ani_info.conf | awk 'NR=='${cur_busy_n}'' | grep -E "busy" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
     fi
 
-    if [ ! -z "$cur_cross_n" ];then
-        cur_cross=$(cat "$start_path"/task/ani_info.conf | awk 'NR=='$cur_cross_n'' | grep -E "cross" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
+    if [[ ! -z "${cur_cross_n}" ]]; then
+        cur_cross=$(cat "${START_PATH}"/task/ani_info.conf | awk 'NR=='${cur_cross_n}'' | grep -E "cross" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
     fi
 
-    if [ ! -z "$cur_text_n" ];then
-        cur_text=$(cat "$start_path"/task/ani_info.conf | awk 'NR=='$cur_text_n'' | grep -E "text" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
+    if [[ ! -z "${cur_text_n}" ]]; then
+        cur_text=$(cat "${START_PATH}"/task/ani_info.conf | awk 'NR=='${cur_text_n}'' | grep -E "text" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
     fi
 
-    if [ ! -z "$cur_hand_n" ];then
-        cur_hand=$(cat "$start_path"/task/ani_info.conf | awk 'NR=='$cur_hand_n'' | grep -E "hand" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
+    if [[ ! -z "${cur_hand_n}" ]]; then
+        cur_hand=$(cat "${START_PATH}"/task/ani_info.conf | awk 'NR=='${cur_hand_n}'' | grep -E "hand" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
     fi
 
-    if [ ! -z "$cur_unavailiable_n" ];then
-        cur_unavailiable=$(cat "$start_path"/task/ani_info.conf | awk 'NR=='$cur_unavailiable_n'' | grep -E "unavailiable" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
+    if [[ ! -z "${cur_unavailiable_n}" ]]; then
+        cur_unavailiable=$(cat "${START_PATH}"/task/ani_info.conf | awk 'NR=='${cur_unavailiable_n}'' | grep -E "unavailiable" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
     fi
 
-    if [ ! -z "$cur_vert_n" ];then
-        cur_vert=$(cat "$start_path"/task/ani_info.conf | awk 'NR=='$cur_vert_n'' | grep -E "vert" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
+    if [[ ! -z "${cur_vert_n}" ]]; then
+        cur_vert=$(cat "${START_PATH}"/task/ani_info.conf | awk 'NR=='${cur_vert_n}'' | grep -E "vert" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
     fi
 
-    if [ ! -z "$cur_horz_n" ];then
-        cur_horz=$(cat "$start_path"/task/ani_info.conf | awk 'NR=='$cur_horz_n'' | grep -E "horz" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
+    if [[ ! -z "${cur_horz_n}" ]]; then
+        cur_horz=$(cat "${START_PATH}"/task/ani_info.conf | awk 'NR=='${cur_horz_n}'' | grep -E "horz" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
     fi
 
-    if [ ! -z "$cur_dgn1_n" ];then
-        cur_dgn1=$(cat "$start_path"/task/ani_info.conf | awk 'NR=='$cur_dgn1_n'' | grep -E "dgn1" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
+    if [[ ! -z "${cur_dgn1_n}" ]]; then
+        cur_dgn1=$(cat "${START_PATH}"/task/ani_info.conf | awk 'NR=='${cur_dgn1_n}'' | grep -E "dgn1" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
     fi
 
-    if [ ! -z "$cur_dgn2_n" ];then
-        cur_dgn2=$(cat "$start_path"/task/ani_info.conf | awk 'NR=='$cur_dgn2_n'' | grep -E "dgn2" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
+    if [[ ! -z "${cur_dgn2_n}" ]]; then
+        cur_dgn2=$(cat "${START_PATH}"/task/ani_info.conf | awk 'NR=='${cur_dgn2_n}'' | grep -E "dgn2" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
     fi
 
-    if [ ! -z "$cur_move_n" ];then
-        cur_move=$(cat "$start_path"/task/ani_info.conf | awk 'NR=='$cur_move_n'' | grep -E "move" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
+    if [[ ! -z "${cur_move_n}" ]]; then
+        cur_move=$(cat "${START_PATH}"/task/ani_info.conf | awk 'NR=='${cur_move_n}'' | grep -E "move" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
     fi
 
-    if [ ! -z "$cur_alternate_n" ];then
-        cur_alternate=$(cat "$start_path"/task/ani_info.conf | awk 'NR=='$cur_alternate_n'' | grep -E "alternate" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
+    if [[ ! -z "${cur_alternate_n}" ]]; then
+        cur_alternate=$(cat "${START_PATH}"/task/ani_info.conf | awk 'NR=='${cur_alternate_n}'' | grep -E "alternate" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
     fi
 
-    if [ ! -z "$cur_link_n" ];then
-        cur_link=$(cat "$start_path"/task/ani_info.conf | awk 'NR=='$cur_link_n'' | grep -E "link" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
+    if [[ ! -z "${cur_link_n}" ]]; then
+        cur_link=$(cat "${START_PATH}"/task/ani_info.conf | awk 'NR=='${cur_link_n}'' | grep -E "link" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
     fi
 
-    if [ ! -z "$cur_pin_n" ];then
-        cur_pin=$(cat "$start_path"/task/ani_info.conf | awk 'NR=='$cur_pin_n'' | grep -E "pin" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
+    if [[ ! -z "${cur_pin_n}" ]]; then
+        cur_pin=$(cat "${START_PATH}"/task/ani_info.conf | awk 'NR=='${cur_pin_n}'' | grep -E "pin" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
     fi
 
-    if [ ! -z "$cur_person_n" ];then
-        cur_person=$(cat "$start_path"/task/ani_info.conf | awk 'NR=='$cur_person_n'' | grep -E "person" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
+    if [[ ! -z "${cur_person_n}" ]]; then
+        cur_person=$(cat "${START_PATH}"/task/ani_info.conf | awk 'NR=='${cur_person_n}'' | grep -E "person" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
     fi
 
-    rm -f "$start_path"/task/ani_info.conf # 清理配置缓存文件
+    rm -f "${START_PATH}"/task/ani_info.conf # 清理配置缓存文件
 
     #创建鼠标指针文件夹
-    mkdir -p "$start_path"/task/cursors_tmp # 缓存文件夹
-    mkdir -p "$start_path"/task/"$exec_time"/cursors # 鼠标指针文件夹
+    mkdir -p "${START_PATH}"/task/cursors_tmp # 缓存文件夹
+    mkdir -p "${START_PATH}/task/${EXEC_TIME}/cursors" # 鼠标指针文件夹
 
     # 鼠标指针格式转换
     ani_echo "开始鼠标指针文件转换"
-    if [ -z "$cur_pointer" ];then # 不存在时从指针库复制
-        cp -f "$start_path"/source/left_ptr "$start_path"/task/"$exec_time"/cursors
+    if [[ -z "${cur_pointer}" ]]; then # 不存在时从指针库复制
+        cp -f "${START_PATH}"/source/left_ptr "${START_PATH}/task/${EXEC_TIME}/cursors"
     else
-        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_pointer" | awk 'NR==1 {print}')" "$start_path"/task/cursors_tmp/left_ptr.ani # 复制鼠标指针到缓存文件夹
-        ani_win2xcur "$start_path"/task/cursors_tmp/left_ptr.ani -o "$start_path"/task/"$exec_time"/cursors # 转换后存到鼠标指针文件夹
+        cp -f "${inf_parent_path}/$(ls -a "${inf_parent_path}" | grep -iw "${cur_pointer}" | awk 'NR==1 {print}')" "${START_PATH}"/task/cursors_tmp/left_ptr.ani # 复制鼠标指针到缓存文件夹
+        ani_win2xcur "${START_PATH}"/task/cursors_tmp/left_ptr.ani -o "${START_PATH}/task/${EXEC_TIME}/cursors" # 转换后存到鼠标指针文件夹
     fi
 
-    if [ -z "$cur_help" ];then
-        cp -f "$start_path"/source/question_arrow "$start_path"/task/"$exec_time"/cursors
+    if [[ -z "${cur_help}" ]]; then
+        cp -f "${START_PATH}"/source/question_arrow "${START_PATH}/task/${EXEC_TIME}/cursors"
     else
-        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_help" | awk 'NR==1 {print}')" "$start_path"/task/cursors_tmp/question_arrow.ani
-        ani_win2xcur "$start_path"/task/cursors_tmp/question_arrow.ani -o "$start_path"/task/"$exec_time"/cursors
+        cp -f "${inf_parent_path}/$(ls -a "${inf_parent_path}" | grep -iw "${cur_help}" | awk 'NR==1 {print}')" "${START_PATH}"/task/cursors_tmp/question_arrow.ani
+        ani_win2xcur "${START_PATH}"/task/cursors_tmp/question_arrow.ani -o "${START_PATH}/task/${EXEC_TIME}/cursors"
     fi
 
-    if [ -z "$cur_work" ];then
-        cp -f "$start_path"/source/left_ptr_watch "$start_path"/task/"$exec_time"/cursors
+    if [[ -z "${cur_work}" ]]; then
+        cp -f "${START_PATH}"/source/left_ptr_watch "${START_PATH}/task/${EXEC_TIME}/cursors"
     else
-        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_work" | awk 'NR==1 {print}')" "$start_path"/task/cursors_tmp/left_ptr_watch.ani
-        ani_win2xcur "$start_path"/task/cursors_tmp/left_ptr_watch.ani -o "$start_path"/task/"$exec_time"/cursors
+        cp -f "${inf_parent_path}/$(ls -a "${inf_parent_path}" | grep -iw "${cur_work}" | awk 'NR==1 {print}')" "${START_PATH}"/task/cursors_tmp/left_ptr_watch.ani
+        ani_win2xcur "${START_PATH}"/task/cursors_tmp/left_ptr_watch.ani -o "${START_PATH}/task/${EXEC_TIME}/cursors"
     fi
 
-    if [ -z "$cur_busy" ];then
-        cp -f "$start_path"/source/wait "$start_path"/task/"$exec_time"/cursors
+    if [[ -z "${cur_busy}" ]]; then
+        cp -f "${START_PATH}"/source/wait "${START_PATH}/task/${EXEC_TIME}/cursors"
     else
-        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_busy" | awk 'NR==1 {print}')" "$start_path"/task/cursors_tmp/wait.ani
-        ani_win2xcur "$start_path"/task/cursors_tmp/wait.ani -o "$start_path"/task/"$exec_time"/cursors
+        cp -f "${inf_parent_path}/$(ls -a "${inf_parent_path}" | grep -iw "${cur_busy}" | awk 'NR==1 {print}')" "${START_PATH}"/task/cursors_tmp/wait.ani
+        ani_win2xcur "${START_PATH}"/task/cursors_tmp/wait.ani -o "${START_PATH}/task/${EXEC_TIME}/cursors"
     fi
 
-    if [ -z "$cur_cross" ];then
-        cp -f "$start_path"/source/cross "$start_path"/task/"$exec_time"/cursors
+    if [[ -z "${cur_cross}" ]]; then
+        cp -f "${START_PATH}"/source/cross "${START_PATH}/task/${EXEC_TIME}/cursors"
     else
-        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_cross" | awk 'NR==1 {print}')" "$start_path"/task/cursors_tmp/cross.ani
-        ani_win2xcur "$start_path"/task/cursors_tmp/cross.ani -o "$start_path"/task/"$exec_time"/cursors
+        cp -f "${inf_parent_path}/$(ls -a "${inf_parent_path}" | grep -iw "${cur_cross}" | awk 'NR==1 {print}')" "${START_PATH}"/task/cursors_tmp/cross.ani
+        ani_win2xcur "${START_PATH}"/task/cursors_tmp/cross.ani -o "${START_PATH}/task/${EXEC_TIME}/cursors"
     fi
 
-    if [ -z "$cur_text" ];then
-        cp -f "$start_path"/source/xterm "$start_path"/task/"$exec_time"/cursors
+    if [[ -z "${cur_text}" ]]; then
+        cp -f "${START_PATH}"/source/xterm "${START_PATH}/task/${EXEC_TIME}/cursors"
     else
-        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_text" | awk 'NR==1 {print}')" "$start_path"/task/cursors_tmp/xterm.ani
-        ani_win2xcur "$start_path"/task/cursors_tmp/xterm.ani -o "$start_path"/task/"$exec_time"/cursors
+        cp -f "${inf_parent_path}/$(ls -a "${inf_parent_path}" | grep -iw "${cur_text}" | awk 'NR==1 {print}')" "${START_PATH}"/task/cursors_tmp/xterm.ani
+        ani_win2xcur "${START_PATH}"/task/cursors_tmp/xterm.ani -o "${START_PATH}/task/${EXEC_TIME}/cursors"
     fi
 
-    if [ -z "$cur_hand" ];then
-        cp -f "$start_path"/source/pencil "$start_path"/task/"$exec_time"/cursors
+    if [[ -z "${cur_hand}" ]]; then
+        cp -f "${START_PATH}"/source/pencil "${START_PATH}/task/${EXEC_TIME}/cursors"
     else
-        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_hand" | awk 'NR==1 {print}')" "$start_path"/task/cursors_tmp/pencil.ani
-        ani_win2xcur "$start_path"/task/cursors_tmp/pencil.ani -o "$start_path"/task/"$exec_time"/cursors
+        cp -f "${inf_parent_path}/$(ls -a "${inf_parent_path}" | grep -iw "${cur_hand}" | awk 'NR==1 {print}')" "${START_PATH}"/task/cursors_tmp/pencil.ani
+        ani_win2xcur "${START_PATH}"/task/cursors_tmp/pencil.ani -o "${START_PATH}/task/${EXEC_TIME}/cursors"
     fi
 
-    if [ -z "$cur_unavailiable" ];then
-        cp -f "$start_path"/source/circle "$start_path"/task/"$exec_time"/cursors
+    if [[ -z "${cur_unavailiable}" ]]; then
+        cp -f "${START_PATH}"/source/circle "${START_PATH}/task/${EXEC_TIME}/cursors"
     else
-        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_unavailiable" | awk 'NR==1 {print}')" "$start_path"/task/cursors_tmp/circle.ani
-        ani_win2xcur "$start_path"/task/cursors_tmp/circle.ani -o "$start_path"/task/"$exec_time"/cursors
+        cp -f "${inf_parent_path}/$(ls -a "${inf_parent_path}" | grep -iw "${cur_unavailiable}" | awk 'NR==1 {print}')" "${START_PATH}"/task/cursors_tmp/circle.ani
+        ani_win2xcur "${START_PATH}"/task/cursors_tmp/circle.ani -o "${START_PATH}/task/${EXEC_TIME}/cursors"
     fi
 
-    if [ -z "$cur_vert" ];then
-        cp -f "$start_path"/source/bottom_side "$start_path"/task/"$exec_time"/cursors
+    if [[ -z "${cur_vert}" ]]; then
+        cp -f "${START_PATH}"/source/bottom_side "${START_PATH}/task/${EXEC_TIME}/cursors"
     else
-        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_vert" | awk 'NR==1 {print}')" "$start_path"/task/cursors_tmp/bottom_side.ani
-        ani_win2xcur "$start_path"/task/cursors_tmp/bottom_side.ani -o "$start_path"/task/"$exec_time"/cursors
+        cp -f "${inf_parent_path}/$(ls -a "${inf_parent_path}" | grep -iw "${cur_vert}" | awk 'NR==1 {print}')" "${START_PATH}"/task/cursors_tmp/bottom_side.ani
+        ani_win2xcur "${START_PATH}"/task/cursors_tmp/bottom_side.ani -o "${START_PATH}/task/${EXEC_TIME}/cursors"
     fi
 
-    if [ -z "$cur_horz" ];then
-        cp -f "$start_path"/source/left_side "$start_path"/task/"$exec_time"/cursors
+    if [[ -z "${cur_horz}" ]]; then
+        cp -f "${START_PATH}"/source/left_side "${START_PATH}/task/${EXEC_TIME}/cursors"
     else
-        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_horz" | awk 'NR==1 {print}')" "$start_path"/task/cursors_tmp/left_side.ani
-        ani_win2xcur "$start_path"/task/cursors_tmp/left_side.ani -o "$start_path"/task/"$exec_time"/cursors
+        cp -f "${inf_parent_path}/$(ls -a "${inf_parent_path}" | grep -iw "${cur_horz}" | awk 'NR==1 {print}')" "${START_PATH}"/task/cursors_tmp/left_side.ani
+        ani_win2xcur "${START_PATH}"/task/cursors_tmp/left_side.ani -o "${START_PATH}/task/${EXEC_TIME}/cursors"
     fi
 
-    if [ -z "$cur_dgn1" ];then
-        cp -f "$start_path"/source/bottom_right_corner "$start_path"/task/"$exec_time"/cursors
+    if [[ -z "${cur_dgn1}" ]]; then
+        cp -f "${START_PATH}"/source/bottom_right_corner "${START_PATH}/task/${EXEC_TIME}/cursors"
     else
-        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_dgn1" | awk 'NR==1 {print}')" "$start_path"/task/cursors_tmp/bottom_right_corner.ani
-        ani_win2xcur "$start_path"/task/cursors_tmp/bottom_right_corner.ani -o "$start_path"/task/"$exec_time"/cursors
+        cp -f "${inf_parent_path}/$(ls -a "${inf_parent_path}" | grep -iw "${cur_dgn1}" | awk 'NR==1 {print}')" "${START_PATH}"/task/cursors_tmp/bottom_right_corner.ani
+        ani_win2xcur "${START_PATH}"/task/cursors_tmp/bottom_right_corner.ani -o "${START_PATH}/task/${EXEC_TIME}/cursors"
     fi
 
-    if [ -z "$cur_dgn2" ];then
-        cp -f "$start_path"/source/bottom_left_corner "$start_path"/task/"$exec_time"/cursors
+    if [[ -z "${cur_dgn2}" ]]; then
+        cp -f "${START_PATH}"/source/bottom_left_corner "${START_PATH}/task/${EXEC_TIME}/cursors"
     else
-        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_dgn2" | awk 'NR==1 {print}')" "$start_path"/task/cursors_tmp/bottom_left_corner.ani
-        ani_win2xcur "$start_path"/task/cursors_tmp/bottom_left_corner.ani -o "$start_path"/task/"$exec_time"/cursors
+        cp -f "${inf_parent_path}/$(ls -a "${inf_parent_path}" | grep -iw "${cur_dgn2}" | awk 'NR==1 {print}')" "${START_PATH}"/task/cursors_tmp/bottom_left_corner.ani
+        ani_win2xcur "${START_PATH}"/task/cursors_tmp/bottom_left_corner.ani -o "${START_PATH}/task/${EXEC_TIME}/cursors"
     fi
 
-    if [ -z "$cur_move" ];then
-        cp -f "$start_path"/source/move "$start_path"/task/"$exec_time"/cursors
+    if [[ -z "${cur_move}" ]]; then
+        cp -f "${START_PATH}"/source/move "${START_PATH}/task/${EXEC_TIME}/cursors"
     else
-        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_move" | awk 'NR==1 {print}')" "$start_path"/task/cursors_tmp/move.ani
-        ani_win2xcur "$start_path"/task/cursors_tmp/move.ani -o "$start_path"/task/"$exec_time"/cursors
+        cp -f "${inf_parent_path}/$(ls -a "${inf_parent_path}" | grep -iw "${cur_move}" | awk 'NR==1 {print}')" "${START_PATH}"/task/cursors_tmp/move.ani
+        ani_win2xcur "${START_PATH}"/task/cursors_tmp/move.ani -o "${START_PATH}/task/${EXEC_TIME}/cursors"
     fi
 
-    if [ -z "$cur_alternate" ];then
-        cp -f "$start_path"/source/dotbox "$start_path"/task/"$exec_time"/cursors
+    if [[ -z "${cur_alternate}" ]]; then
+        cp -f "${START_PATH}"/source/dotbox "${START_PATH}/task/${EXEC_TIME}/cursors"
     else
-        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_alternate" | awk 'NR==1 {print}')" "$start_path"/task/cursors_tmp/dotbox.ani
-        ani_win2xcur "$start_path"/task/cursors_tmp/dotbox.ani -o "$start_path"/task/"$exec_time"/cursors
+        cp -f "${inf_parent_path}/$(ls -a "${inf_parent_path}" | grep -iw "${cur_alternate}" | awk 'NR==1 {print}')" "${START_PATH}"/task/cursors_tmp/dotbox.ani
+        ani_win2xcur "${START_PATH}"/task/cursors_tmp/dotbox.ani -o "${START_PATH}/task/${EXEC_TIME}/cursors"
     fi
 
-    if [ -z "$cur_link" ];then
-        cp -f "$start_path"/source/hand2 "$start_path"/task/"$exec_time"/cursors
+    if [[ -z "${cur_link}" ]]; then
+        cp -f "${START_PATH}"/source/hand2 "${START_PATH}/task/${EXEC_TIME}/cursors"
     else
-        cp -f "$inf_parent_path/$(ls -a "$inf_parent_path" | grep -iw "$cur_link" | awk 'NR==1 {print}')" "$start_path"/task/cursors_tmp/hand2.ani
-        ani_win2xcur "$start_path"/task/cursors_tmp/hand2.ani -o "$start_path"/task/"$exec_time"/cursors
+        cp -f "${inf_parent_path}/$(ls -a "${inf_parent_path}" | grep -iw "${cur_link}" | awk 'NR==1 {print}')" "${START_PATH}"/task/cursors_tmp/hand2.ani
+        ani_win2xcur "${START_PATH}"/task/cursors_tmp/hand2.ani -o "${START_PATH}/task/${EXEC_TIME}/cursors"
     fi
 
     # 删除临时文件夹
-    rm -rf "$start_path"/task/cursors_tmp
+    rm -rf "${START_PATH}"/task/cursors_tmp
 
     # 这两种鼠标指针很少人会去做，所以就不转换了
-    # if [ -z "$cur_pin" ];then
-    #     cp -f "$start_path"/win2xcur-source/
+    # if [ -z "$cur_pin" ]; then
+    #     cp -f "${START_PATH}"/win2xcur-source/
     # else
-    #     cp -f "$cur_pin" "$start_path"/task/cursors_tmp/pin.ani
-    #     win2xcur "$start_path"/task/cursors_tmp/pin.ani -o "$start_path"/task/"$cur_name"/cursors
+    #     cp -f "$cur_pin" "${START_PATH}"/task/cursors_tmp/pin.ani
+    #     win2xcur "${START_PATH}"/task/cursors_tmp/pin.ani -o "${START_PATH}"/task/"$cur_name"/cursors
     # fi
 
-    # if [ -z "$cur_person" ];then
-    #     cp -f "$start_path"/win2xcur-source/
+    # if [ -z "$cur_person" ]; then
+    #     cp -f "${START_PATH}"/win2xcur-source/
     # else
-    #     cp -f "$cur_person" "$start_path"/task/cursors_tmp/person.ani
-    #     win2xcur "$start_path"/task/cursors_tmp/person.ani -o "$start_path"/task/"$cur_name"/cursors
+    #     cp -f "$cur_person" "${START_PATH}"/task/cursors_tmp/person.ani
+    #     win2xcur "${START_PATH}"/task/cursors_tmp/person.ani -o "${START_PATH}"/task/"$cur_name"/cursors
     # fi
 
     # 补全剩下的鼠标文件夹
     ani_echo "补全剩余鼠标指针文件"
-    cp "$start_path"/source/right_ptr "$start_path"/task/"$exec_time"/cursors
-    cp "$start_path"/source/vertical-text "$start_path"/task/"$exec_time"/cursors
-    cp "$start_path"/source/wayland-cursor "$start_path"/task/"$exec_time"/cursors
-    cp "$start_path"/source/zoom-out "$start_path"/task/"$exec_time"/cursors
-    cp "$start_path"/source/zoom-in "$start_path"/task/"$exec_time"/cursors
-    cp "$start_path"/source/center_ptr "$start_path"/task/"$exec_time"/cursors
+    cp "${START_PATH}"/source/right_ptr "${START_PATH}/task/${EXEC_TIME}/cursors"
+    cp "${START_PATH}"/source/vertical-text "${START_PATH}/task/${EXEC_TIME}/cursors"
+    cp "${START_PATH}"/source/wayland-cursor "${START_PATH}/task/${EXEC_TIME}/cursors"
+    cp "${START_PATH}"/source/zoom-out "${START_PATH}/task/${EXEC_TIME}/cursors"
+    cp "${START_PATH}"/source/zoom-in "${START_PATH}/task/${EXEC_TIME}/cursors"
+    cp "${START_PATH}"/source/center_ptr "${START_PATH}/task/${EXEC_TIME}/cursors"
 
     # 进入鼠标指针文件夹
-    cd "$start_path"/task/"$exec_time"/cursors
+    cd "${START_PATH}/task/${EXEC_TIME}/cursors"
 
     # 为其他鼠标指针别名创建链接
     ani_echo "创建鼠标指针文件链接"
@@ -441,27 +441,50 @@ ani_win2xcur_start()
 
     # 为鼠标指针生成配置文件
     ani_echo "生成配置文件中"
-    # cursor.theme
-    echo "[Icon Theme]" > "$start_path"/task/"$exec_time"/cursor.theme
-    echo "Name=${cur_name}" >> "$start_path"/task/"$exec_time"/cursor.theme
-    echo "Inherits=${cur_name}" >> "$start_path"/task/"$exec_time"/cursor.theme
-    # index.tmeme
-    echo "[Icon Theme]" > "$start_path"/task/"$exec_time"/index.theme
-    echo "Name=${cur_name}" >> "$start_path"/task/"$exec_time"/index.theme
-    echo "Comment=${cur_name} cursors for linux" >> "$start_path"/task/"$exec_time"/index.theme
-    echo "Inherits=hicolor" >> "$start_path"/task/"$exec_time"/index.theme
+    generate_config "${cur_name}"
 
     # 移动鼠标文件夹到最终输出文件夹
-    mkdir -p "$start_path"/output/"$exec_time"
-    mv -f "$start_path"/task/"$exec_time" "$start_path"/output/"$exec_time"
-    mv -f "$start_path"/output/"$exec_time"/"$exec_time" "$start_path"/output/"$exec_time"/"$cur_name"
+    mkdir -p "${START_PATH}/output/${EXEC_TIME}"
+    mv -f "${START_PATH}/task/${EXEC_TIME}" "${START_PATH}/output/${EXEC_TIME}"
+    mv -f "${START_PATH}/output/${EXEC_TIME}/${EXEC_TIME}" "${START_PATH}/output/${EXEC_TIME}/${cur_name}"
 
     # 生成鼠标指针安装脚本到鼠标指针文件夹所在目录
-    echo "# 鼠标指针安装" > "$start_path"/output/"$exec_time"/install.sh
-    echo "echo \"将鼠标指针安装至 ~/.icons\"" >> "$start_path"/output/"$exec_time"/install.sh
-    echo "cp -r ./$cur_name ~/.icons" >> "$start_path"/output/"$exec_time"/install.sh
-    echo "echo \"安装完成, 可使用 \\\"gsettings set org.gnome.desktop.interface cursor-theme \\\"$cur_name\\\"\\\" 启用该鼠标指针\"" >> "$start_path"/output/"$exec_time"/install.sh
-    chmod +x "$start_path"/output/"$exec_time"/install.sh
+    generate_install_script "${cur_name}"
 
-    ani_echo "转换结束, 鼠标指针文件保存路径: "$start_path"/output/"$exec_time""
+    ani_echo "转换结束, 鼠标指针文件保存路径: ${START_PATH}/output/${EXEC_TIME}"
+}
+
+# 生成配置文件
+generate_config() {
+    local cur_name=$@
+
+    # cursor.theme
+    cat<<EOF > "${START_PATH}/task/${EXEC_TIME}/cursor.theme"
+[Icon Theme]
+Name=${cur_name}
+Inherits=${cur_name}
+EOF
+
+    # index.tmeme
+    cat<<EOF > "${START_PATH}/task/${EXEC_TIME}/index.theme"
+[Icon Theme]
+Name=${cur_name}
+Comment=${cur_name} cursors for Linux
+Inherits=hicolor
+EOF
+}
+
+# 生成安装脚本
+generate_install_script() {
+    local cur_name=$@
+
+    cat<<EOF > "${START_PATH}/output/${EXEC_TIME}/install.sh"
+#!/bin/bash
+
+echo "将鼠标指针安装至 \$HOME/.icons"
+cp -r "./${cur_name}" "\$HOME/.icons"
+echo "${cur_name} 鼠标指针安装完成, 可使用运行下面的命令启用该鼠标指针"
+echo "\$ gsettings set org.gnome.desktop.interface cursor-theme \"${cur_name}\""
+EOF
+    chmod +x "${START_PATH}/output/${EXEC_TIME}/install.sh"
 }
