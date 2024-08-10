@@ -3,8 +3,7 @@
 # 转换功能
 # 使用:
 # ani_win2xcur <鼠标指针的inf配置文件>
-ani_win2xcur_start()
-{
+ani_win2xcur_start() {
     local cur_name # 鼠标指针名字
     local cur_pointer
     local cur_help
@@ -57,98 +56,98 @@ ani_win2xcur_start()
     iconv -f GBK -t UTF-8 "${START_PATH}"/task/ani_info_origin.conf > "${START_PATH}"/task/ani_info.conf # 编码转换
     rm -rf "${START_PATH}"/task/ani_info_origin.conf
 
-    #读取各个鼠标指针参数(文件名称)
+    # 读取各个鼠标指针参数(文件名称)
     # 获取参数所在行数
-    cur_name_n=$(cat "${START_PATH}"/task/ani_info.conf | awk '{print $1}' | grep -nE "SCHEME_NAME" | awk -F ':' '{print $NR}')
-    cur_pointer_n=$(cat "${START_PATH}"/task/ani_info.conf | awk '{print $1}' | grep -nE "pointer" | awk -F ':' '{print $NR}')
-    cur_help_n=$(cat "${START_PATH}"/task/ani_info.conf | awk '{print $1}' | grep -nE "help" | awk -F ':' '{print $NR}')
-    cur_work_n=$(cat "${START_PATH}"/task/ani_info.conf | awk '{print $1}' | grep -nE "work" | awk -F ':' '{print $NR}')
-    cur_busy_n=$(cat "${START_PATH}"/task/ani_info.conf | awk '{print $1}' | grep -nE "busy" | awk -F ':' '{print $NR}')
-    cur_cross_n=$(cat "${START_PATH}"/task/ani_info.conf | awk '{print $1}' | grep -nE "cross" | awk -F ':' '{print $NR}')
-    cur_text_n=$(cat "${START_PATH}"/task/ani_info.conf | awk '{print $1}' | grep -nE "text" | awk -F ':' '{print $NR}')
-    cur_hand_n=$(cat "${START_PATH}"/task/ani_info.conf | awk '{print $1}' | grep -nE "hand" | awk -F ':' '{print $NR}')
-    cur_unavailiable_n=$(cat "${START_PATH}"/task/ani_info.conf | awk '{print $1}' | grep -nE "unavailiable" | awk -F ':' '{print $NR}')
-    cur_vert_n=$(cat "${START_PATH}"/task/ani_info.conf | awk '{print $1}' | grep -nE "vert" | awk -F ':' '{print $NR}')
-    cur_horz_n=$(cat "${START_PATH}"/task/ani_info.conf | awk '{print $1}' | grep -nE "horz" | awk -F ':' '{print $NR}')
-    cur_dgn1_n=$(cat "${START_PATH}"/task/ani_info.conf | awk '{print $1}' | grep -nE "dgn1" | awk -F ':' '{print $NR}')
-    cur_dgn2_n=$(cat "${START_PATH}"/task/ani_info.conf | awk '{print $1}' | grep -nE "dgn2" | awk -F ':' '{print $NR}')
-    cur_move_n=$(cat "${START_PATH}"/task/ani_info.conf | awk '{print $1}' | grep -nE "move" | awk -F ':' '{print $NR}')
-    cur_alternate_n=$(cat "${START_PATH}"/task/ani_info.conf | awk '{print $1}' | grep -nE "alternate" | awk -F ':' '{print $NR}')
-    cur_link_n=$(cat "${START_PATH}"/task/ani_info.conf | awk '{print $1}' | grep -nE "link" | awk -F ':' '{print $NR}')
-    cur_pin_n=$(cat "${START_PATH}"/task/ani_info.conf | awk '{print $1}' | grep -nE "pin" | awk -F ':' '{print $NR}')
-    cur_person_n=$(cat "${START_PATH}"/task/ani_info.conf | awk '{print $1}' | grep -nE "person" | awk -F ':' '{print $NR}')
+    cur_name_n=$(cat "${START_PATH}"/task/ani_info.conf | awk '{print $1}' | grep -i -n -e "SCHEME_NAME" | awk -F ':' 'NR==1 {print $NR}')
+    cur_pointer_n=$(cat "${START_PATH}"/task/ani_info.conf | awk '{print $1}' | grep -i -n -e "pointer" -e "curarrow" | awk -F ':' 'NR==1 {print $NR}')
+    cur_help_n=$(cat "${START_PATH}"/task/ani_info.conf | awk '{print $1}' | grep -i -n -e "help" -e "curhelp" | awk -F ':' 'NR==1 {print $NR}')
+    cur_work_n=$(cat "${START_PATH}"/task/ani_info.conf | awk '{print $1}' | grep -i -n -e "work" -e "curappstarting" | awk -F ':' 'NR==1 {print $NR}')
+    cur_busy_n=$(cat "${START_PATH}"/task/ani_info.conf | awk '{print $1}' | grep -i -n -e "busy" -e "curwait" | awk -F ':' 'NR==1 {print $NR}')
+    cur_cross_n=$(cat "${START_PATH}"/task/ani_info.conf | awk '{print $1}' | grep -i -n -e "cross" -e "curcrosshair" | awk -F ':' 'NR==1 {print $NR}')
+    cur_text_n=$(cat "${START_PATH}"/task/ani_info.conf | awk '{print $1}' | grep -i -n -e "text" -e "curibeam" | awk -F ':' 'NR==1 {print $NR}')
+    cur_hand_n=$(cat "${START_PATH}"/task/ani_info.conf | awk '{print $1}' | grep -i -n -e "hand" -e "curnwpen" | awk -F ':' 'NR==1 {print $NR}')
+    cur_unavailiable_n=$(cat "${START_PATH}"/task/ani_info.conf | awk '{print $1}' | grep -i -n -e "unavailiable" -e "curno" | awk -F ':' 'NR==1 {print $NR}')
+    cur_vert_n=$(cat "${START_PATH}"/task/ani_info.conf | awk '{print $1}' | grep -i -n -e "vert" -e "cursizens" | awk -F ':' 'NR==1 {print $NR}')
+    cur_horz_n=$(cat "${START_PATH}"/task/ani_info.conf | awk '{print $1}' | grep -i -n -e "horz" -e "cursizewe" | awk -F ':' 'NR==1 {print $NR}')
+    cur_dgn1_n=$(cat "${START_PATH}"/task/ani_info.conf | awk '{print $1}' | grep -i -n -e "dgn1" -e "cursizenwse" | awk -F ':' 'NR==1 {print $NR}')
+    cur_dgn2_n=$(cat "${START_PATH}"/task/ani_info.conf | awk '{print $1}' | grep -i -n -e "dgn2" -e "cursizenesw" | awk -F ':' 'NR==1 {print $NR}')
+    cur_move_n=$(cat "${START_PATH}"/task/ani_info.conf | awk '{print $1}' | grep -i -n -e "move" -e "cursizeall" | awk -F ':' 'NR==1 {print $NR}')
+    cur_alternate_n=$(cat "${START_PATH}"/task/ani_info.conf | awk '{print $1}' | grep -i -n -e "alternate" -e "curuparrow" | awk -F ':' 'NR==1 {print $NR}')
+    cur_link_n=$(cat "${START_PATH}"/task/ani_info.conf | awk '{print $1}' | grep -i -n -e "link" -e "curhand" | awk -F ':' 'NR==1 {print $NR}')
+    cur_pin_n=$(cat "${START_PATH}"/task/ani_info.conf | awk '{print $1}' | grep -i -n -e "pin" | awk -F ':' 'NR==1 {print $NR}')
+    cur_person_n=$(cat "${START_PATH}"/task/ani_info.conf | awk '{print $1}' | grep -i -n -e "person" | awk -F ':' 'NR==1 {print $NR}')
 
     # 获取对应文件名称
     if [[ ! -z "${cur_name_n}" ]]; then
-        cur_name=$(cat "${START_PATH}"/task/ani_info.conf | awk 'NR=='${cur_name_n}'' | grep -E "SCHEME_NAME" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
+        cur_name=$(cat "${START_PATH}"/task/ani_info.conf | awk 'NR=='${cur_name_n}'' | grep -i -e "SCHEME_NAME" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
     fi
 
     if [[ ! -z "${cur_pointer_n}" ]]; then
-        cur_pointer=$(cat "${START_PATH}"/task/ani_info.conf | awk 'NR=='${cur_pointer_n}'' | grep -E "pointer" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
+        cur_pointer=$(cat "${START_PATH}"/task/ani_info.conf | awk 'NR=='${cur_pointer_n}'' | grep -i -e "pointer" -e "curarrow" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
     fi
 
     if [[ ! -z "${cur_help_n}" ]]; then
-        cur_help=$(cat "${START_PATH}"/task/ani_info.conf | awk 'NR=='${cur_help_n}'' | grep -E "help" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
+        cur_help=$(cat "${START_PATH}"/task/ani_info.conf | awk 'NR=='${cur_help_n}'' | grep -i -e "help" -e "curhelp" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
     fi
 
     if [[ ! -z "${cur_work_n}" ]]; then
-        cur_work=$(cat "${START_PATH}"/task/ani_info.conf | awk 'NR=='${cur_work_n}'' | grep -E "work" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
+        cur_work=$(cat "${START_PATH}"/task/ani_info.conf | awk 'NR=='${cur_work_n}'' | grep -i -e "work" -e "curappstarting" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
     fi
 
     if [[ ! -z "${cur_busy_n}" ]]; then
-        cur_busy=$(cat "${START_PATH}"/task/ani_info.conf | awk 'NR=='${cur_busy_n}'' | grep -E "busy" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
+        cur_busy=$(cat "${START_PATH}"/task/ani_info.conf | awk 'NR=='${cur_busy_n}'' | grep -i -e "busy" -e "curwait" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
     fi
 
     if [[ ! -z "${cur_cross_n}" ]]; then
-        cur_cross=$(cat "${START_PATH}"/task/ani_info.conf | awk 'NR=='${cur_cross_n}'' | grep -E "cross" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
+        cur_cross=$(cat "${START_PATH}"/task/ani_info.conf | awk 'NR=='${cur_cross_n}'' | grep -i -e "cross" -e "curcrosshair" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
     fi
 
     if [[ ! -z "${cur_text_n}" ]]; then
-        cur_text=$(cat "${START_PATH}"/task/ani_info.conf | awk 'NR=='${cur_text_n}'' | grep -E "text" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
+        cur_text=$(cat "${START_PATH}"/task/ani_info.conf | awk 'NR=='${cur_text_n}'' | grep -i -e "text" -e "curibeam" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
     fi
 
     if [[ ! -z "${cur_hand_n}" ]]; then
-        cur_hand=$(cat "${START_PATH}"/task/ani_info.conf | awk 'NR=='${cur_hand_n}'' | grep -E "hand" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
+        cur_hand=$(cat "${START_PATH}"/task/ani_info.conf | awk 'NR=='${cur_hand_n}'' | grep -i -e "hand" -e "curnwpen" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
     fi
 
     if [[ ! -z "${cur_unavailiable_n}" ]]; then
-        cur_unavailiable=$(cat "${START_PATH}"/task/ani_info.conf | awk 'NR=='${cur_unavailiable_n}'' | grep -E "unavailiable" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
+        cur_unavailiable=$(cat "${START_PATH}"/task/ani_info.conf | awk 'NR=='${cur_unavailiable_n}'' | grep -i -e "unavailiable" -e "curno" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
     fi
 
     if [[ ! -z "${cur_vert_n}" ]]; then
-        cur_vert=$(cat "${START_PATH}"/task/ani_info.conf | awk 'NR=='${cur_vert_n}'' | grep -E "vert" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
+        cur_vert=$(cat "${START_PATH}"/task/ani_info.conf | awk 'NR=='${cur_vert_n}'' | grep -i -e "vert" -e "cursizens" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
     fi
 
     if [[ ! -z "${cur_horz_n}" ]]; then
-        cur_horz=$(cat "${START_PATH}"/task/ani_info.conf | awk 'NR=='${cur_horz_n}'' | grep -E "horz" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
+        cur_horz=$(cat "${START_PATH}"/task/ani_info.conf | awk 'NR=='${cur_horz_n}'' | grep -i -e "horz" -e "cursizewe" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
     fi
 
     if [[ ! -z "${cur_dgn1_n}" ]]; then
-        cur_dgn1=$(cat "${START_PATH}"/task/ani_info.conf | awk 'NR=='${cur_dgn1_n}'' | grep -E "dgn1" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
+        cur_dgn1=$(cat "${START_PATH}"/task/ani_info.conf | awk 'NR=='${cur_dgn1_n}'' | grep -i -e "dgn1" -e "cursizenwse" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
     fi
 
     if [[ ! -z "${cur_dgn2_n}" ]]; then
-        cur_dgn2=$(cat "${START_PATH}"/task/ani_info.conf | awk 'NR=='${cur_dgn2_n}'' | grep -E "dgn2" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
+        cur_dgn2=$(cat "${START_PATH}"/task/ani_info.conf | awk 'NR=='${cur_dgn2_n}'' | grep -i -e "dgn2" -e "cursizenesw" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
     fi
 
     if [[ ! -z "${cur_move_n}" ]]; then
-        cur_move=$(cat "${START_PATH}"/task/ani_info.conf | awk 'NR=='${cur_move_n}'' | grep -E "move" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
+        cur_move=$(cat "${START_PATH}"/task/ani_info.conf | awk 'NR=='${cur_move_n}'' | grep -i -e "move" -e "cursizeall" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
     fi
 
     if [[ ! -z "${cur_alternate_n}" ]]; then
-        cur_alternate=$(cat "${START_PATH}"/task/ani_info.conf | awk 'NR=='${cur_alternate_n}'' | grep -E "alternate" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
+        cur_alternate=$(cat "${START_PATH}"/task/ani_info.conf | awk 'NR=='${cur_alternate_n}'' | grep -i -e "alternate" -e "curuparrow" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
     fi
 
     if [[ ! -z "${cur_link_n}" ]]; then
-        cur_link=$(cat "${START_PATH}"/task/ani_info.conf | awk 'NR=='${cur_link_n}'' | grep -E "link" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
+        cur_link=$(cat "${START_PATH}"/task/ani_info.conf | awk 'NR=='${cur_link_n}'' | grep -i -e "link" -e "curhand" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
     fi
 
     if [[ ! -z "${cur_pin_n}" ]]; then
-        cur_pin=$(cat "${START_PATH}"/task/ani_info.conf | awk 'NR=='${cur_pin_n}'' | grep -E "pin" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
+        cur_pin=$(cat "${START_PATH}"/task/ani_info.conf | awk 'NR=='${cur_pin_n}'' | grep -i -e "pin" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
     fi
 
     if [[ ! -z "${cur_person_n}" ]]; then
-        cur_person=$(cat "${START_PATH}"/task/ani_info.conf | awk 'NR=='${cur_person_n}'' | grep -E "person" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
+        cur_person=$(cat "${START_PATH}"/task/ani_info.conf | awk 'NR=='${cur_person_n}'' | grep -i -e "person" | awk -F '"' '{print $2}' | tr 'A-Z' 'a-z')
     fi
 
     rm -f "${START_PATH}"/task/ani_info.conf # 清理配置缓存文件
