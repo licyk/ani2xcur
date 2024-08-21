@@ -3,11 +3,11 @@
 一个将 Windows 鼠标指针转换为 Linux 鼠标指针的脚本，基于 GNU 项目的 Dialog 实现显示界面，转换核心基于 win2xcur
 
 ## 环境要求
-- Python（3.6 ~ 3.9）
+- Python（3.6 ~ 3.11）
 - Dialog
 
 >[!NOTE]  
->Python 的版本推荐 3.9。这里推荐一些 Python 版本管理器。  
+>Python 的版本推荐 3.9，其他版本也可以，可自行测试。这里推荐一些 Python 版本管理器。  
 >1. [Pyenv](https://github.com/pyenv/pyenv)（Windows 系统上使用 [Pyenv-Win](https://github.com/pyenv-win/pyenv-win)）
 >2. [MicroMamba](https://mamba.readthedocs.io/en/latest/installation/micromamba-installation.html)
 >3. [MiniConda](https://docs.anaconda.com/free/miniconda/index.html)
