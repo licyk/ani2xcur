@@ -1,4 +1,5 @@
 # ani2xcur
+
 ## 简介
 一个将 Windows 鼠标指针转换为 Linux 鼠标指针的脚本，基于 GNU 项目的 Dialog 实现显示界面，转换核心基于 win2xcur
 
@@ -6,14 +7,14 @@
 - Python（3.6 ~ 3.11）
 - Dialog
 
->[!NOTE]  
->Python 的版本推荐 3.9，其他版本也可以，可自行测试。这里推荐一些 Python 版本管理器。  
->1. [Pyenv](https://github.com/pyenv/pyenv)（Windows 系统上使用 [Pyenv-Win](https://github.com/pyenv-win/pyenv-win)）
->2. [MicroMamba](https://mamba.readthedocs.io/en/latest/installation/micromamba-installation.html)
->3. [MiniConda](https://docs.anaconda.com/free/miniconda/index.html)
+> [!NOTE]  
+> Python 的版本推荐 3.9，其他版本也可以，可自行测试。这里推荐一些 Python 版本管理器。  
+> 1. [Pyenv](https://github.com/pyenv/pyenv)（Windows 系统上使用 [Pyenv-Win](https://github.com/pyenv-win/pyenv-win)）
+> 2. [MicroMamba](https://mamba.readthedocs.io/en/latest/installation/micromamba-installation.html)
+> 3. [MiniConda](https://docs.anaconda.com/free/miniconda/index.html)
 >
->在 Linux 上安装指定版本的 Python 并不方便，所以可以用上面的 Python 版本管理器安装 Python，并在启动 Ani2xcur 时加上`--set-python-path`启动参数来指定 Python 的路径。  
->具体方法可参考该文档：[《在 Linux 上使用 Python 版本管理器安装 Python》](https://github.com/licyk/README-collection/blob/main/term-sd/README_install_python_on_linux.md)
+> 在 Linux 上安装指定版本的 Python 并不方便，所以可以用上面的 Python 版本管理器安装 Python，并在启动 Ani2xcur 时加上`--set-python-path`启动参数来指定 Python 的路径。  
+> 具体方法可参考该文档：[《在 Linux 上使用 Python 版本管理器安装 Python》](https://github.com/licyk/README-collection/blob/main/term-sd/README_install_python_on_linux.md)
 
 ## 安装
 - 1、克隆项目
@@ -28,22 +29,29 @@ chmod +x ani2xcur.sh
 ```
 
 - 3、创建并进入虚拟环境
->该步骤为可选步骤
+
+> 该步骤为可选步骤
+
 ```
 python3 -m venv venv
 source venv/bin/activate
 ```
 
-- 4、运行
+- 4、安装 dialog
+```
+pip install pythondialog
+```
+
+- 5、运行
 ```
 ./ani2xcur.sh
 ```
 
 ## 使用
-进入 Ani2xcur界面后，可以主界面选择`安装 win2xcur 核心`安装转换鼠标指针所需的必要核心  
+进入 Ani2xcur 界面后，可以主界面选择 `安装 win2xcur 核心` 安装转换鼠标指针所需的必要核心  
 
-安装核心完成后，可选择`进入文件浏览器`进入 Ani2xcur 的文件浏览器来寻找鼠标指针文件，一般 Windows 的鼠标指针文件包含`cur`/`ani`格式的文件（鼠标指针图标）和`inf`格式的文件（安装鼠标指针的配置文件）  
->这是 Windows 鼠标指针安装文件的结构
+安装核心完成后，可选择 `进入文件浏览器` 进入 Ani2xcur 的文件浏览器来寻找鼠标指针文件，一般 Windows 的鼠标指针文件包含 `cur` / `ani` 格式的文件（鼠标指针图标）和 `inf` 格式的文件（安装鼠标指针的配置文件）  
+> 这是 Windows 鼠标指针安装文件的结构
 ```
 咩咩
 ├── bashi.ani
@@ -64,15 +72,15 @@ source venv/bin/activate
 └── 右键安装.inf
 ```
 
-在 Ani2xcur 文件浏览器中选中其中一种格式后即可开始转换，转换好的鼠标指针文件将保存在 Ani2xcur 文件夹中的`output`文件夹
+在 Ani2xcur 文件浏览器中选中其中一种格式后即可开始转换，转换好的鼠标指针文件将保存在 Ani2xcur 文件夹中的 `output` 文件夹
 
-Ani2xcur 也支持命令行模式运行（以命令行模式启动时不再检测 Dialog 是否安装），通过启动参数指定`安装鼠标指针的配置文件`的路径后即可进行转换  
-例如
+Ani2xcur 也支持命令行模式运行（以命令行模式启动时不再检测 Dialog 是否安装），通过启动参数指定 `安装鼠标指针的配置文件` 的路径后即可进行转换  
+例如:
 ```
 ./ani2xcur.sh --inf "/home/licyk/Downloads/咩咩/lingdang.ani"
 ./ani2xcur.sh --inf "/home/licyk/Downloads/咩咩/右键安装.inf"
 ```
->以上命令的执行效果等效
+> 以上命令的执行效果等效
 
 Ani2xcur 支持以下启动参数
 ```
