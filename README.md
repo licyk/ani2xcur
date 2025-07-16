@@ -18,12 +18,12 @@
 
 ## 安装
 - 1、克隆项目
-```
+```sh
 git clone https://github.com/licyk/ani2xcur
 ```
 
 - 2、进入目录并给予执行权限
-```
+```sh
 cd ani2xcur
 chmod +x ani2xcur.sh
 ```
@@ -32,18 +32,24 @@ chmod +x ani2xcur.sh
 
 > 该步骤为可选步骤
 
-```
+```sh
 python3 -m venv venv
 source venv/bin/activate
 ```
 
 - 4、安装 dialog
+```sh
+# Debian / Ubuntu 系
+sudo apt install dialog
 ```
-pip install pythondialog
+```sh
+# Arch 系
+sudo pacman -S dialog
 ```
 
+
 - 5、运行
-```
+```sh
 ./ani2xcur.sh
 ```
 
@@ -76,7 +82,7 @@ pip install pythondialog
 
 Ani2xcur 也支持命令行模式运行（以命令行模式启动时不再检测 Dialog 是否安装），通过启动参数指定 `安装鼠标指针的配置文件` 的路径后即可进行转换  
 例如:
-```
+```sh
 ./ani2xcur.sh --inf "/home/licyk/Downloads/咩咩/lingdang.ani"
 ./ani2xcur.sh --inf "/home/licyk/Downloads/咩咩/右键安装.inf"
 ```
