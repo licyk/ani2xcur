@@ -91,22 +91,36 @@ Ani2xcur 也支持命令行模式运行（以命令行模式启动时不再检�
 Ani2xcur 支持以下启动参数
 ```
 使用: 
-    ./ani2xcur.sh [--help] [--set-python-path python_path] [--win2xcur-path win2xcur_path] [--inf inf_file_path] [--install-win2xcur] [--remove-win2xcur]
+    ./ani2xcur.sh [--help] [--set-python-path python_path] [--win2xcur-path WIN2XCUR_PATH] [--inf inf_file_path] [--win2xcur-args WIN2XCUR_ARGS] [--install-win2xcur] [--remove-win2xcur]
 
 参数:
     --help
         显示 Ani2xcur 启动参数帮助
     --set-python-path python_path
         指定 Python 解释器路径。推荐在 Python 虚拟环境中启动 Ani2xcur, 这将可省去使用启动参数指定 Python 路径
-    --win2xcur-path win2xcur_path
+    --win2xcur-path WIN2XCUR_PATH
         指定 win2xcur 的路径
     --inf inf_file_path
         指定 inf 鼠标配置文件路径, 若路径有效, 则 Ani2xcur 将以命令行模式启动, 直接进行鼠标指针转换
+    --win2xcur-args WIN2XCUR_ARGS
+        调用 win2xcur 执行鼠标指针转换时传入的额外启动参数
+        例如需要传入 --scale 0.9 --shadow --shadow-opacity 60 参数, 则使用参数 --win2xcur-args "--scale 0.9 --shadow --shadow-opacity 60" 进行传入
+        当使用命令行参数配置 win2xcur 额外启动参数时, 若在 Ani2xcur 设置中配置了 win2xcur 启动参数, 则该设置将被忽略
+        win2xcur 可用的额外参数可执行 win2xcur --help 命令进行查看, 或者查看 win2xcur 项目源码: https://github.com/quantum5/win2xcur/blob/master/win2xcur/main/win2xcur.py
     --install-win2xcur
         安装 win2xcur 核心
     --remove-win2xcur
         卸载 win2xcur 核心
 ```
+
+>[!IMPORTANT]  
+>Ani2xcur 使用的 [win2xcur](https://github.com/quantum5/win2xcur) 原项目在 PyPI 上未更新，则使用 Ani2xcur 安装的 win2xcur 会出现部分新增参数不可用，如`--scale`参数（**如果不使用 win2xcur 额外的参数则可忽略该说明**）。解决该问题需要在使用 Ani2xcur 安装 win2xcur 后，退出 Ani2xcur，并使用下面的命令更新 win2xcur：
+>
+>```bash
+>python3 -m pip install git+https://github.com/quantum5/win2xcur --upgrade --force-reinstall
+>```
+>更新后再重新启动 Ani2xcur 即可正常使用。
+
 
 ## 使用项目
 

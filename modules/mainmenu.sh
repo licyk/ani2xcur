@@ -3,6 +3,7 @@
 # 主界面
 mainmenu() {
     local dialog_arg
+    local win2xcur_launch_args
     local win2xcur_status
 
     while true; do
@@ -14,17 +15,26 @@ mainmenu() {
             win2xcur_status="未安装"
         fi
 
+        if [[ ! -z "${ORIGIN_WIN2XCUR_ARGS}" ]]; then
+            win2xcur_launch_args=$ORIGIN_WIN2XCUR_ARGS
+        elif [[ -f "${START_PATH}/win2xcur_args.conf" ]]; then
+            win2xcur_launch_args=$(cat "${START_PATH}/win2xcur_args.conf" 2> /dev/null)
+        else
+            win2xcur_launch_args=""
+        fi
+
         dialog_arg=$(dialog --erase-on-exit --notags \
             --title "Ani2xcur" \
             --backtitle "主界面" \
             --ok-label "确认" --cancel-label "退出" \
-            --menu "请选择 Ani2xcur 的功能\n当前 win2xcur 安装状态: ${win2xcur_status}\n当前使用 Python: ${ANI_PYTHON_PATH}\n当前 Ani2xcur 版本: ${ANI2XCUR_VER}" \
+            --menu "请选择 Ani2xcur 的功能\n当前 win2xcur 安装状态: ${win2xcur_status}\n当前 win2xcur 使用的额外启动参数: ${win2xcur_launch_args}\n当前使用 Python: ${ANI_PYTHON_PATH}\n当前 Ani2xcur 版本: ${ANI2XCUR_VER}" \
             $(get_dialog_size_menu) \
             "1" "> 更新 Ani2xcur" \
             "2" "> 安装 win2xcur 核心" \
             "3" "> 卸载 win2xcur 核心" \
-            "4" "> 进入文件浏览器" \
-            "5" "> 退出 Ani2xcur" \
+            "4" "> 配置 win2xcur 启动参数" \
+            "5" "> 进入文件浏览器" \
+            "6" "> 退出 Ani2xcur" \
             3>&1 1>&2 2>&3)
 
         case "${dialog_arg}" in
@@ -91,6 +101,9 @@ mainmenu() {
                 fi
                 ;;
             4)
+                win2xcur_args_setting
+                ;;
+            5)
                 if which "${WIN2XCUR_PATH}" &> /dev/null; then
                     cd ..
                     file_browser

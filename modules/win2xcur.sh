@@ -2,7 +2,7 @@
 
 # 转换功能
 # 使用:
-# ani_win2xcur <鼠标指针的inf配置文件>
+# ani_win2xcur <鼠标指针的 inf 配置文件>
 ani_win2xcur_start() {
     local cur_name # 鼠标指针名字
     local cur_pointer
@@ -156,111 +156,114 @@ ani_win2xcur_start() {
     mkdir -p "${START_PATH}"/task/cursors_tmp # 缓存文件夹
     mkdir -p "${START_PATH}/task/${EXEC_TIME}/cursors" # 鼠标指针文件夹
 
+    # 解析 win2xcur 启动参数
+    parse_win2xcur_args
+
     # 鼠标指针格式转换
-    ani_echo "开始鼠标指针文件转换"
+    ani_echo "开始鼠标指针文件转换, win2xcur 启动参数: ${WIN2XCUR_ARGS[@]}"
     if [[ -z "${cur_pointer}" ]]; then # 不存在时从指针库复制
         cp -f "${START_PATH}"/source/left_ptr "${START_PATH}/task/${EXEC_TIME}/cursors"
     else
         cp -f "${inf_parent_path}/$(ls -a "${inf_parent_path}" | grep -iw "${cur_pointer}" | awk 'NR==1 {print}')" "${START_PATH}"/task/cursors_tmp/left_ptr.ani # 复制鼠标指针到缓存文件夹
-        ani_win2xcur "${START_PATH}"/task/cursors_tmp/left_ptr.ani -o "${START_PATH}/task/${EXEC_TIME}/cursors" # 转换后存到鼠标指针文件夹
+        ani_win2xcur "${START_PATH}"/task/cursors_tmp/left_ptr.ani -o "${START_PATH}/task/${EXEC_TIME}/cursors" "${WIN2XCUR_ARGS[@]}" # 转换后存到鼠标指针文件夹
     fi
 
     if [[ -z "${cur_help}" ]]; then
         cp -f "${START_PATH}"/source/question_arrow "${START_PATH}/task/${EXEC_TIME}/cursors"
     else
         cp -f "${inf_parent_path}/$(ls -a "${inf_parent_path}" | grep -iw "${cur_help}" | awk 'NR==1 {print}')" "${START_PATH}"/task/cursors_tmp/question_arrow.ani
-        ani_win2xcur "${START_PATH}"/task/cursors_tmp/question_arrow.ani -o "${START_PATH}/task/${EXEC_TIME}/cursors"
+        ani_win2xcur "${START_PATH}"/task/cursors_tmp/question_arrow.ani -o "${START_PATH}/task/${EXEC_TIME}/cursors" "${WIN2XCUR_ARGS[@]}"
     fi
 
     if [[ -z "${cur_work}" ]]; then
         cp -f "${START_PATH}"/source/left_ptr_watch "${START_PATH}/task/${EXEC_TIME}/cursors"
     else
         cp -f "${inf_parent_path}/$(ls -a "${inf_parent_path}" | grep -iw "${cur_work}" | awk 'NR==1 {print}')" "${START_PATH}"/task/cursors_tmp/left_ptr_watch.ani
-        ani_win2xcur "${START_PATH}"/task/cursors_tmp/left_ptr_watch.ani -o "${START_PATH}/task/${EXEC_TIME}/cursors"
+        ani_win2xcur "${START_PATH}"/task/cursors_tmp/left_ptr_watch.ani -o "${START_PATH}/task/${EXEC_TIME}/cursors" "${WIN2XCUR_ARGS[@]}"
     fi
 
     if [[ -z "${cur_busy}" ]]; then
         cp -f "${START_PATH}"/source/wait "${START_PATH}/task/${EXEC_TIME}/cursors"
     else
         cp -f "${inf_parent_path}/$(ls -a "${inf_parent_path}" | grep -iw "${cur_busy}" | awk 'NR==1 {print}')" "${START_PATH}"/task/cursors_tmp/wait.ani
-        ani_win2xcur "${START_PATH}"/task/cursors_tmp/wait.ani -o "${START_PATH}/task/${EXEC_TIME}/cursors"
+        ani_win2xcur "${START_PATH}"/task/cursors_tmp/wait.ani -o "${START_PATH}/task/${EXEC_TIME}/cursors" "${WIN2XCUR_ARGS[@]}"
     fi
 
     if [[ -z "${cur_cross}" ]]; then
         cp -f "${START_PATH}"/source/cross "${START_PATH}/task/${EXEC_TIME}/cursors"
     else
         cp -f "${inf_parent_path}/$(ls -a "${inf_parent_path}" | grep -iw "${cur_cross}" | awk 'NR==1 {print}')" "${START_PATH}"/task/cursors_tmp/cross.ani
-        ani_win2xcur "${START_PATH}"/task/cursors_tmp/cross.ani -o "${START_PATH}/task/${EXEC_TIME}/cursors"
+        ani_win2xcur "${START_PATH}"/task/cursors_tmp/cross.ani -o "${START_PATH}/task/${EXEC_TIME}/cursors" "${WIN2XCUR_ARGS[@]}"
     fi
 
     if [[ -z "${cur_text}" ]]; then
         cp -f "${START_PATH}"/source/xterm "${START_PATH}/task/${EXEC_TIME}/cursors"
     else
         cp -f "${inf_parent_path}/$(ls -a "${inf_parent_path}" | grep -iw "${cur_text}" | awk 'NR==1 {print}')" "${START_PATH}"/task/cursors_tmp/xterm.ani
-        ani_win2xcur "${START_PATH}"/task/cursors_tmp/xterm.ani -o "${START_PATH}/task/${EXEC_TIME}/cursors"
+        ani_win2xcur "${START_PATH}"/task/cursors_tmp/xterm.ani -o "${START_PATH}/task/${EXEC_TIME}/cursors" "${WIN2XCUR_ARGS[@]}"
     fi
 
     if [[ -z "${cur_hand}" ]]; then
         cp -f "${START_PATH}"/source/pencil "${START_PATH}/task/${EXEC_TIME}/cursors"
     else
         cp -f "${inf_parent_path}/$(ls -a "${inf_parent_path}" | grep -iw "${cur_hand}" | awk 'NR==1 {print}')" "${START_PATH}"/task/cursors_tmp/pencil.ani
-        ani_win2xcur "${START_PATH}"/task/cursors_tmp/pencil.ani -o "${START_PATH}/task/${EXEC_TIME}/cursors"
+        ani_win2xcur "${START_PATH}"/task/cursors_tmp/pencil.ani -o "${START_PATH}/task/${EXEC_TIME}/cursors" "${WIN2XCUR_ARGS[@]}"
     fi
 
     if [[ -z "${cur_unavailiable}" ]]; then
         cp -f "${START_PATH}"/source/circle "${START_PATH}/task/${EXEC_TIME}/cursors"
     else
         cp -f "${inf_parent_path}/$(ls -a "${inf_parent_path}" | grep -iw "${cur_unavailiable}" | awk 'NR==1 {print}')" "${START_PATH}"/task/cursors_tmp/circle.ani
-        ani_win2xcur "${START_PATH}"/task/cursors_tmp/circle.ani -o "${START_PATH}/task/${EXEC_TIME}/cursors"
+        ani_win2xcur "${START_PATH}"/task/cursors_tmp/circle.ani -o "${START_PATH}/task/${EXEC_TIME}/cursors" "${WIN2XCUR_ARGS[@]}"
     fi
 
     if [[ -z "${cur_vert}" ]]; then
         cp -f "${START_PATH}"/source/bottom_side "${START_PATH}/task/${EXEC_TIME}/cursors"
     else
         cp -f "${inf_parent_path}/$(ls -a "${inf_parent_path}" | grep -iw "${cur_vert}" | awk 'NR==1 {print}')" "${START_PATH}"/task/cursors_tmp/bottom_side.ani
-        ani_win2xcur "${START_PATH}"/task/cursors_tmp/bottom_side.ani -o "${START_PATH}/task/${EXEC_TIME}/cursors"
+        ani_win2xcur "${START_PATH}"/task/cursors_tmp/bottom_side.ani -o "${START_PATH}/task/${EXEC_TIME}/cursors" "${WIN2XCUR_ARGS[@]}"
     fi
 
     if [[ -z "${cur_horz}" ]]; then
         cp -f "${START_PATH}"/source/left_side "${START_PATH}/task/${EXEC_TIME}/cursors"
     else
         cp -f "${inf_parent_path}/$(ls -a "${inf_parent_path}" | grep -iw "${cur_horz}" | awk 'NR==1 {print}')" "${START_PATH}"/task/cursors_tmp/left_side.ani
-        ani_win2xcur "${START_PATH}"/task/cursors_tmp/left_side.ani -o "${START_PATH}/task/${EXEC_TIME}/cursors"
+        ani_win2xcur "${START_PATH}"/task/cursors_tmp/left_side.ani -o "${START_PATH}/task/${EXEC_TIME}/cursors" "${WIN2XCUR_ARGS[@]}"
     fi
 
     if [[ -z "${cur_dgn1}" ]]; then
         cp -f "${START_PATH}"/source/bottom_right_corner "${START_PATH}/task/${EXEC_TIME}/cursors"
     else
         cp -f "${inf_parent_path}/$(ls -a "${inf_parent_path}" | grep -iw "${cur_dgn1}" | awk 'NR==1 {print}')" "${START_PATH}"/task/cursors_tmp/bottom_right_corner.ani
-        ani_win2xcur "${START_PATH}"/task/cursors_tmp/bottom_right_corner.ani -o "${START_PATH}/task/${EXEC_TIME}/cursors"
+        ani_win2xcur "${START_PATH}"/task/cursors_tmp/bottom_right_corner.ani -o "${START_PATH}/task/${EXEC_TIME}/cursors" "${WIN2XCUR_ARGS[@]}"
     fi
 
     if [[ -z "${cur_dgn2}" ]]; then
         cp -f "${START_PATH}"/source/bottom_left_corner "${START_PATH}/task/${EXEC_TIME}/cursors"
     else
         cp -f "${inf_parent_path}/$(ls -a "${inf_parent_path}" | grep -iw "${cur_dgn2}" | awk 'NR==1 {print}')" "${START_PATH}"/task/cursors_tmp/bottom_left_corner.ani
-        ani_win2xcur "${START_PATH}"/task/cursors_tmp/bottom_left_corner.ani -o "${START_PATH}/task/${EXEC_TIME}/cursors"
+        ani_win2xcur "${START_PATH}"/task/cursors_tmp/bottom_left_corner.ani -o "${START_PATH}/task/${EXEC_TIME}/cursors" "${WIN2XCUR_ARGS[@]}"
     fi
 
     if [[ -z "${cur_move}" ]]; then
         cp -f "${START_PATH}"/source/move "${START_PATH}/task/${EXEC_TIME}/cursors"
     else
         cp -f "${inf_parent_path}/$(ls -a "${inf_parent_path}" | grep -iw "${cur_move}" | awk 'NR==1 {print}')" "${START_PATH}"/task/cursors_tmp/move.ani
-        ani_win2xcur "${START_PATH}"/task/cursors_tmp/move.ani -o "${START_PATH}/task/${EXEC_TIME}/cursors"
+        ani_win2xcur "${START_PATH}"/task/cursors_tmp/move.ani -o "${START_PATH}/task/${EXEC_TIME}/cursors" "${WIN2XCUR_ARGS[@]}"
     fi
 
     if [[ -z "${cur_alternate}" ]]; then
         cp -f "${START_PATH}"/source/dotbox "${START_PATH}/task/${EXEC_TIME}/cursors"
     else
         cp -f "${inf_parent_path}/$(ls -a "${inf_parent_path}" | grep -iw "${cur_alternate}" | awk 'NR==1 {print}')" "${START_PATH}"/task/cursors_tmp/dotbox.ani
-        ani_win2xcur "${START_PATH}"/task/cursors_tmp/dotbox.ani -o "${START_PATH}/task/${EXEC_TIME}/cursors"
+        ani_win2xcur "${START_PATH}"/task/cursors_tmp/dotbox.ani -o "${START_PATH}/task/${EXEC_TIME}/cursors" "${WIN2XCUR_ARGS[@]}"
     fi
 
     if [[ -z "${cur_link}" ]]; then
         cp -f "${START_PATH}"/source/hand2 "${START_PATH}/task/${EXEC_TIME}/cursors"
     else
         cp -f "${inf_parent_path}/$(ls -a "${inf_parent_path}" | grep -iw "${cur_link}" | awk 'NR==1 {print}')" "${START_PATH}"/task/cursors_tmp/hand2.ani
-        ani_win2xcur "${START_PATH}"/task/cursors_tmp/hand2.ani -o "${START_PATH}/task/${EXEC_TIME}/cursors"
+        ani_win2xcur "${START_PATH}"/task/cursors_tmp/hand2.ani -o "${START_PATH}/task/${EXEC_TIME}/cursors" "${WIN2XCUR_ARGS[@]}"
     fi
 
     # 删除临时文件夹

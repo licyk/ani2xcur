@@ -19,11 +19,11 @@ ani_print_line() {
         print_mode=1
     else
         shell_width=$SHELL_WIDTH # 获取终端宽度
-        input_text=$(echo "$@" | awk '{gsub(/ /,"-")}1') # 将空格转换为"-"
+        input_text=$(echo "$@" | awk '{gsub(/ /,"-")}1') # 将空格转换为 "-"
         input_text_length=$(( $(echo "${input_text}" | wc -c) - 1 )) # 总共的字符长度
         input_zh_text_length=$(( $(echo "${input_text}" | awk '{gsub(/[a-zA-Z]/,"") ; gsub(/[0-9]/, "") ; gsub(/[=+()（）、。,./\-_\\]/, "")}1' | wc -c) - 1 )) # 计算中文字符的长度
         input_text_length=$(( input_text_length - input_zh_text_length )) # 除去中文之后的长度
-        # 中文的字符长度为3,但终端中只占2个字符位
+        # 中文的字符长度为 3, 但终端中只占 2 个字符位
         input_zh_text_length=$(( input_zh_text_length / 3 * 2 )) # 转换中文在终端占用的实际字符长度
         input_text_length=$(( input_text_length + input_zh_text_length )) # 最终显示文字的长度
 
@@ -87,8 +87,8 @@ ani_launch_args_manager() {
     local ani_launch_args
     local i
 
-    # 用别的方法实现了getopt命令的功能
-    # 加一个--null是为了增加一次循环,保证那些需要参数的选项能成功执行
+    # 用别的方法实现了 getopt 命令的功能
+    # 加一个 --null 是为了增加一次循环, 保证那些需要参数的选项能成功执行
     for i in "$@" "--null"; do
         ani_launch_args=$i # 用作判断是参数还是选项
 
@@ -108,6 +108,10 @@ ani_launch_args_manager() {
                     ;;
                 --win2xcur-path)
                     set_win2xcur_path "${ani_launch_args}"
+                    ;;
+                --win2xcur-args)
+                    ani_echo "设置 win2xcur 启动参数: ${ani_launch_args}"
+                    ORIGIN_WIN2XCUR_ARGS=$ani_launch_args
                     ;;
             esac
             unset ani_launch_args_input # 清除选项, 留给下一次判断
@@ -132,6 +136,9 @@ ani_launch_args_manager() {
             --inf)
                 ani_launch_args_input="--inf"
                 ;;
+            --win2xcur-args)
+                ani_launch_args_input="--win2xcur-args"
+                ;;
             --install-win2xcur)
                 INSTALL_WIN2XCUR=1
                 ;;
@@ -150,7 +157,7 @@ ani_launch_args_manager() {
 ani_args_help() {
     cat<<EOF
     使用: 
-        ./ani2xcur.sh [--help] [--set-python-path python_path] [--win2xcur-path WIN2XCUR_PATH] [--inf inf_file_path] [--install-win2xcur] [--remove-win2xcur]
+        ./ani2xcur.sh [--help] [--set-python-path python_path] [--win2xcur-path WIN2XCUR_PATH] [--inf inf_file_path] [--win2xcur-args WIN2XCUR_ARGS] [--install-win2xcur] [--remove-win2xcur]
 
     参数:
         --help
@@ -161,6 +168,11 @@ ani_args_help() {
             指定 win2xcur 的路径
         --inf inf_file_path
             指定 inf 鼠标配置文件路径, 若路径有效, 则 Ani2xcur 将以命令行模式启动, 直接进行鼠标指针转换
+        --win2xcur-args WIN2XCUR_ARGS
+            调用 win2xcur 执行鼠标指针转换时传入的额外启动参数
+            例如需要传入 --scale 0.9 --shadow --shadow-opacity 60 参数, 则使用参数 --win2xcur-args "--scale 0.9 --shadow --shadow-opacity 60" 进行传入
+            当使用命令行参数配置 win2xcur 额外启动参数时, 若在 Ani2xcur 设置中配置了 win2xcur 启动参数, 则该设置将被忽略
+            win2xcur 可用的额外参数可执行 win2xcur --help 命令进行查看, 或者查看 win2xcur 项目源码: https://github.com/quantum5/win2xcur/blob/master/win2xcur/main/win2xcur.py
         --install-win2xcur
             安装 win2xcur 核心
         --remove-win2xcur
@@ -262,7 +274,7 @@ main() {
         exit 1
     fi
 
-    ANI2XCUR_VER="0.0.5"
+    ANI2XCUR_VER="0.0.6"
     CLI_MODE=0
     local missing_depend_info=0
     local missing_depend
@@ -273,7 +285,7 @@ main() {
     INSTALL_WIN2XCUR=0
     # Pip 镜像源设置
     export PIP_INDEX_URL="https://mirrors.cloud.tencent.com/pypi/simple"
-    export PIP_EXTRA_INDEX_URL="https://mirror.baidu.com/pypi/simple"
+    export PIP_EXTRA_INDEX_URL="https://mirrors.cernet.edu.cn/pypi/web/simple"
     export PIP_DISABLE_PIP_VERSION_CHECK=1
     # 设置 Dialog 界面的大小
     DIALOG_MENU_HEIGHT=10 # Dialog 列表高度

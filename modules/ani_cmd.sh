@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Python 命令
-ani_pyhton() {
+ani_python() {
     # 检测是否在虚拟环境中
     if [[ ! -z "${VIRTUAL_ENV}" ]]; then # 当处在虚拟环境时
         # 检测使用哪种命令调用 Python
@@ -35,5 +35,6 @@ ani_pip() {
 
 # win2xcur 命令
 ani_win2xcur() {
-    "${WIN2XCUR_PATH}" "$@"
+    # "${WIN2XCUR_PATH}" "$@"
+    ani_python -m win2xcur.main.win2xcur "$@"
 }

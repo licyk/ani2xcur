@@ -1,8 +1,7 @@
 #!/bin/bash
 
 # 文件浏览器
-file_browser()
-{
+file_browser() {
     local file_name
     local path
 
