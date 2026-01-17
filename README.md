@@ -1,4 +1,9 @@
 # ani2xcur
+>[!IMPORTANT]好消息🎉  
+>基于 Python 重构的 [Ani2xcur CLI](https://github.com/licyk/ani2xcur-cli) 现已发布，支持 Windows 鼠标指针与 Linux 鼠标指针双向转换，并提供安装、应用和卸载鼠标主题的全套管理功能。
+>
+>**项目地址**：https://github.com/licyk/ani2xcur-cli
+
 
 ## 简介
 一个将 Windows 鼠标指针转换为 Linux 鼠标指针的脚本，基于 GNU 项目的 Dialog 实现显示界面，转换核心基于 win2xcur
