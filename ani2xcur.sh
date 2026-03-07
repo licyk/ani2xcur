@@ -302,6 +302,13 @@ main() {
         DIALOG_HEIGHT=$(( SHELL_HEIGHT - 6 ))
     fi
 
+    ani_print_line
+    ani_echo "基于 Python 重构的 Ani2xcur CLI 现已发布"
+    ani_echo "支持 Windows 鼠标指针与 Linux 鼠标指针双向转换，并提供安装、应用和卸载鼠标主题的全套管理功能"
+    ani_echo "提供比 Ani2xcur 更好的使用体验"
+    ani_echo "项目地址: https://github.com/licyk/ani2xcur-cli"
+    ani_print_line
+
     # 创建输出文件夹
     mkdir -p "${START_PATH}"/output
     mkdir -p "${START_PATH}"/task

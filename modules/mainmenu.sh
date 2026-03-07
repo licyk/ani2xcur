@@ -27,7 +27,7 @@ mainmenu() {
             --title "Ani2xcur" \
             --backtitle "主界面" \
             --ok-label "确认" --cancel-label "退出" \
-            --menu "请选择 Ani2xcur 的功能\n当前 win2xcur 安装状态: ${win2xcur_status}\n当前 win2xcur 使用的额外启动参数: ${win2xcur_launch_args}\n当前使用 Python: ${ANI_PYTHON_PATH}\n当前 Ani2xcur 版本: ${ANI2XCUR_VER}" \
+            --menu "请选择 Ani2xcur 的功能\n当前 win2xcur 安装状态: ${win2xcur_status}\n当前 win2xcur 使用的额外启动参数: ${win2xcur_launch_args}\n当前使用 Python: ${ANI_PYTHON_PATH}\n当前 Ani2xcur 版本: ${ANI2XCUR_VER}\n\n[News!] 新版 Ani2xcur CLI 项目地址: https://github.com/licyk/ani2xcur-cli" \
             $(get_dialog_size_menu) \
             "1" "> 更新 Ani2xcur" \
             "2" "> 安装 win2xcur 核心" \
