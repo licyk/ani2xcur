@@ -45,7 +45,7 @@ def update(
     ] = None,
 ) -> None:
     """更新 Ani2xcur
-    
+
     Args:
         install_from_source: 是否从源码安装更新
         ani2xcur_source: Ani2xcur 源仓库链接

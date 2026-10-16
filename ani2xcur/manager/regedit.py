@@ -3,6 +3,7 @@
 import sys
 from enum import (
     IntFlag,
+    auto,
     Enum,
 )
 from typing import Any
@@ -103,32 +104,32 @@ if sys.platform == "win32":
 else:
 
     class RegistryRootKey(Enum):  # pylint: disable=missing-class-docstring
-        CLASSES_ROOT = NotImplemented
-        CURRENT_USER = NotImplemented
-        LOCAL_MACHINE = NotImplemented
-        USERS = NotImplemented
-        CURRENT_CONFIG = NotImplemented
+        CLASSES_ROOT = auto()
+        CURRENT_USER = auto()
+        LOCAL_MACHINE = auto()
+        USERS = auto()
+        CURRENT_CONFIG = auto()
 
     class RegistryAccess(Enum):  # pylint: disable=missing-class-docstring
-        READ = NotImplemented
-        WRITE = NotImplemented
-        SET_VALUE = NotImplemented
-        QUERY_VALUE = NotImplemented
-        CREATE_SUB_KEY = NotImplemented
-        ENUMERATE_SUB_KEYS = NotImplemented
-        NOTIFY = NotImplemented
-        ALL_ACCESS = NotImplemented
-        WOW64_64KEY = NotImplemented
-        WOW64_32KEY = NotImplemented
+        READ = auto()
+        WRITE = auto()
+        SET_VALUE = auto()
+        QUERY_VALUE = auto()
+        CREATE_SUB_KEY = auto()
+        ENUMERATE_SUB_KEYS = auto()
+        NOTIFY = auto()
+        ALL_ACCESS = auto()
+        WOW64_64KEY = auto()
+        WOW64_32KEY = auto()
 
     class RegistryValueType(Enum):  # pylint: disable=missing-class-docstring
-        SZ = NotImplemented
-        EXPAND_SZ = NotImplemented
-        DWORD = NotImplemented
-        QWORD = NotImplemented
-        BINARY = NotImplemented
-        MULTI_SZ = NotImplemented
-        NONE = NotImplemented
+        SZ = auto()
+        EXPAND_SZ = auto()
+        DWORD = auto()
+        QWORD = auto()
+        BINARY = auto()
+        MULTI_SZ = auto()
+        NONE = auto()
 
     winreg: Any = NotImplemented  # pylint: disable=invalid-name
 

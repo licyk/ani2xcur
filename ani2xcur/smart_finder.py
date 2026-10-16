@@ -36,7 +36,7 @@ def find_desktop_entry_file(
     is_toplevel: bool = True,  # pylint: disable=unused-argument
 ) -> Path | None:
     """搜索 DesktopEntry 文件路径
-    
+
     Args:
         input_file (Path | str): 任意文件路径、压缩包路径或压缩包下载链接
         temp_dir (Path): 临时文件夹, 用于保存寻找文件时产生的临时文件
@@ -166,7 +166,7 @@ def find_inf_file(
     is_toplevel: bool = True,
 ) -> Path | None:
     """搜索 INF 文件路径
-    
+
     Args:
         input_file (Path | str): 任意文件路径、压缩包路径或压缩包下载链接
         temp_dir (Path): 临时文件夹, 用于保存寻找文件时产生的临时文件

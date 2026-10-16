@@ -37,14 +37,14 @@ def scale_frames(frames: list[CursorFrame], scale: float) -> None:
         for cursor in frame.images:
             width, height = cursor.image.size
             new_size = (
-                max(1, int(round(width * scale))),
-                max(1, int(round(height * scale))),
+                max(1, round(width * scale)),
+                max(1, round(height * scale)),
             )
             cursor.image = cursor.image.convert("RGBA").resize(new_size, Image.Resampling.LANCZOS)
             hotspot_x, hotspot_y = cursor.hotspot
             cursor.hotspot = (
-                max(0, int(round(hotspot_x * scale))),
-                max(0, int(round(hotspot_y * scale))),
+                max(0, round(hotspot_x * scale)),
+                max(0, round(hotspot_y * scale)),
             )
     logger.debug("光标帧缩放完成")
 
@@ -158,10 +158,10 @@ def _add_shadow_to_image(
 ) -> tuple[Image.Image, tuple[int, int]]:
     image = source.convert("RGBA")
     width, height = image.size
-    offset_x = int(round(xoffset * width))
-    offset_y = int(round(yoffset * height))
+    offset_x = round(xoffset * width)
+    offset_y = round(yoffset * height)
     blur_radius = max(radius * width, sigma * width, 0)
-    margin = int(ceil(blur_radius * 2))
+    margin = ceil(blur_radius * 2)
 
     left_pad = margin + max(0, -offset_x)
     top_pad = margin + max(0, -offset_y)
@@ -214,13 +214,13 @@ def _resize_cursor_image(
     source_nominal = source.nominal if source.nominal > 0 else max(width, height)
     scale = target_size / source_nominal
     new_size = (
-        max(1, int(round(width * scale))),
-        max(1, int(round(height * scale))),
+        max(1, round(width * scale)),
+        max(1, round(height * scale)),
     )
     hotspot_x, hotspot_y = source.hotspot
     new_hotspot = (
-        max(0, min(new_size[0], int(round(hotspot_x * scale)))),
-        max(0, min(new_size[1], int(round(hotspot_y * scale)))),
+        max(0, min(new_size[0], round(hotspot_x * scale))),
+        max(0, min(new_size[1], round(hotspot_y * scale))),
     )
     return CursorImage(
         image=image.resize(new_size, Image.Resampling.LANCZOS),

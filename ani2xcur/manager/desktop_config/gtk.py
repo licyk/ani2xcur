@@ -283,7 +283,7 @@ def set_gtk3_cursor_size(
     cursor_size: int,
 ) -> None:
     """设置 GTK3 标准方案的当前使用的鼠标指针大小
-    
+
     Args:
         cursor_size (int): 要设置的鼠标指针大小
     """
@@ -303,7 +303,7 @@ def set_gtk2_cursor_size(
     cursor_size: int,
 ) -> None:
     """设置 GTK2 标准方案的当前使用的鼠标指针大小
-    
+
     Args:
         cursor_size (int): 要设置的鼠标指针大小
     """

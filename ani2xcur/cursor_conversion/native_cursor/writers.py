@@ -66,7 +66,7 @@ def to_xcursor(frames: list[CursorFrame]) -> bytes:
                 height,
                 hotspot_x,
                 hotspot_y,
-                int(round(frame.delay * 1000)),
+                round(frame.delay * 1000),
             )
             chunks.append((XCURSOR_IMAGE_TYPE, cursor.nominal, header + _premultiply_rgba_to_bgra(image.tobytes())))
     logger.debug(
@@ -214,7 +214,7 @@ def _ani_cursor_list(frames: list[CursorFrame]) -> bytes:
 
 
 def _frame_delay_to_jiffies(delay: float, animated: bool) -> int:
-    jiffies = int(round(delay * 60))
+    jiffies = round(delay * 60)
     if animated and jiffies <= 0:
         return 1
     return jiffies

@@ -80,7 +80,7 @@ def install_cursor(
     ] = False,
 ) -> None:
     """将鼠标指针安装到系统中
-    
+
     Args:
         input_path: 鼠标指针配置文件、光标文件、压缩包路径或下载链接
         install_path: 自定义鼠标指针安装路径
@@ -119,8 +119,7 @@ def install_cursor(
                 )
             except PermissionError as e:
                 raise PermissionError(
-                    "在 Windows 系统上安装鼠标指针时发生错误: "
-                    f"{e}\n请检查是否使用管理员权限运行 Ani2xcur 运行, 或者尝试使用 --install-path 参数指定其他鼠标指针的安装路径"
+                    f"在 Windows 系统上安装鼠标指针时发生错误: {e}\n请检查是否使用管理员权限运行 Ani2xcur 运行, 或者尝试使用 --install-path 参数指定其他鼠标指针的安装路径"
                 ) from e
     elif sys.platform == "linux":
         if install_path is None:
@@ -175,7 +174,7 @@ def uninstall_cursor(
     ] = False,
 ) -> None:
     """删除系统中指定的鼠标指针
-    
+
     Args:
         cursor_name: 要删除的鼠标指针名称
         force: 是否跳过确认提示
@@ -243,7 +242,7 @@ def export_cursor(
     ] = ".zip",
 ) -> None:
     """将鼠标指针从系统中导出
-    
+
     Args:
         cursor_name: 要导出的鼠标指针名称
         output_path: 导出路径
@@ -306,7 +305,7 @@ def set_cursor_theme(
     ],
 ) -> None:
     """设置系统要使用的鼠标指针主题
-    
+
     Args:
         cursor_name: 要设置的鼠标指针主题名称
     Raises:
@@ -336,7 +335,7 @@ def set_cursor_size(
     ],
 ) -> None:
     """设置系统要使用的鼠标指针大小
-    
+
     Args:
         cursor_size: 要设置的鼠标指针大小
     Raises:
@@ -364,7 +363,7 @@ def set_cursor_size(
 
 def list_cursor() -> None:
     """列出当前系统中已安装的鼠标指针
-    
+
     Raises:
         NotImplementedError: 当前平台不支持列出鼠标指针时
     """
@@ -409,7 +408,7 @@ def list_cursor() -> None:
 
 def get_current_cursor() -> None:
     """显示当前系统中设置的鼠标指针名称和大小
-    
+
     Raises:
         NotImplementedError: 当前平台不支持读取鼠标指针信息时
     """

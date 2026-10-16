@@ -186,10 +186,7 @@ def parse_inf_file_content(
         ValueError: 当鼠标指针配置文件不完整时
     """
     inf = parse_inf_file(inf_path)
-    try:
-        return preprocess_inf_to_cursor_scheme(inf)
-    except ValueError as e:
-        raise e
+    return preprocess_inf_to_cursor_scheme(inf)
 
 
 def dict_to_inf_strings_format(
@@ -197,7 +194,7 @@ def dict_to_inf_strings_format(
     indent_width: int = 12,
 ) -> str:
     """将字典转换为 INF 文件 [Strings] 部分的格式
-    
+
     Args:
         data_dict (dict[str, str]): 包含键值对的字典
         indent_width (int): 缩进宽度, 默认为 12 个空格

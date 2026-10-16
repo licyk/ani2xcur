@@ -370,7 +370,7 @@ def get_file_list(
     include_dirs: bool = False,
 ) -> list[Path]:
     """获取当前路径下的所有文件和可选目录的绝对路径
-    
+
     Args:
         path (Path): 要获取列表的目录
         resolve (bool): 是否完全解析路径, 包括链接路径

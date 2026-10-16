@@ -130,12 +130,12 @@ def refresh_system_params(
     cursor_base_size: int | None = None,
 ) -> None:
     """通知系统刷新设置以应用更改
-    
+
     参考资料:
     - SystemParametersInfoW: https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-systemparametersinfow
     - PowerShell 刷新光标大小讨论: https://stackoverflow.com/questions/60104778/change-and-update-the-size-of-the-cursor-in-windows-10-via-powershell
     - Windows 11 光标刷新讨论: https://www.elevenforum.com/t/reloading-mouse-cursors-and-changing-their-size.37551/
-    
+
     Args:
         cursor_base_size (int | None): Windows 鼠标指针基础大小, 传入时会同步应用当前会话中的指针大小
     """

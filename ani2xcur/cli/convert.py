@@ -144,7 +144,7 @@ def win2xcur(
     ] = None,
 ) -> None:
     """将 Windows 鼠标指针文件包转换为 Linux 鼠标指针文件包
-    
+
     Args:
         input_path: Windows 鼠标指针文件、压缩包或下载链接
         output_path: 转换结果保存路径
@@ -278,7 +278,7 @@ def x2wincur(
     ] = None,
 ) -> None:
     """将 Linux 鼠标指针文件包转换为 Windows 鼠标指针文件包
-    
+
     Args:
         input_path: Linux 鼠标指针文件、压缩包或下载链接
         output_path: 转换结果保存路径

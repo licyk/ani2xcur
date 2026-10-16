@@ -5,7 +5,6 @@ from pathlib import Path
 from typing import (
     TypedDict,
     TypeAlias,
-    cast,
 )
 
 
@@ -58,7 +57,7 @@ def parse_inf_text(
         m = re.match(r"^\[(.+?)\]$", line)
         if m:
             current = m.group(1)
-            result[current] = cast(INFSection, {"var": {}, "constant": []})
+            result[current] = {"var": {}, "constant": []}
             continue
 
         if current is None:
@@ -95,7 +94,7 @@ def parse_inf_file(
     path: Path,
 ) -> ParsedINF:
     """解析 INF 文件
-    
+
     Args:
         path (Path): INF 文件路径
     Returns:

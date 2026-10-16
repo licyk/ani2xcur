@@ -241,9 +241,9 @@ def generate_scheme_reg_string(
     value: str,
 ) -> str:
     """生成 INF 字符串中 [Scheme.Reg] 格式的字符串
-    
+
     [Scheme.Reg] 用于创建 Windows 注册表值, 格式: `<注册表根键>,<注册表子路径>,<键名>,<数据类型>,<值>`
-    
+
     Args:
         key (str): 注册表根键
         sub_key (str): 注册表子路径
@@ -433,7 +433,7 @@ def install_windows_cursor(
     cursor_install_path: Path | None = None,
 ) -> None:
     """通过 INF 配置文件安装鼠标指针
-    
+
     Args:
         inf_file (Path): 鼠标指针配置文件路径
         cursor_install_path (Path | None): 自定义鼠标指针文件安装路径, 当为 None 时使用 INF 配置文件中的路径
@@ -618,9 +618,9 @@ def generate_cursor_scheme_config(
     custom_install_path: Path | None = None,
 ) -> WindowsCursorSchemeConfig:
     """生成鼠标指针的配置字典
-    
+
     配置字段包括 cursor_src_file、destination_dirs、wreg、scheme_reg、scheme_cur 和 strings。
-    
+
     Args:
         cursor_name (str): 要导出的鼠标指针方案的名称
         custom_install_path (Path | None): 自定义鼠标指针安装路径

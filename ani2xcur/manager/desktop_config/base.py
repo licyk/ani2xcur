@@ -75,7 +75,7 @@ def check_windows_cursor_size_value(
     value: int,
 ) -> int:
     """检查设置的 Windows 鼠标指针大小是否符合范围
-    
+
     Args:
         value (int): 鼠标指针大小
     Returns:
@@ -110,7 +110,7 @@ def convert_windows_cursor_base_size_to_size(
     value: int,
 ) -> int | None:
     """将 CursorBaseSize 值转换为 Windows 设置页中的鼠标指针大小档位
-    
+
     Args:
         value (int): CursorBaseSize 注册表值
     Returns:
@@ -134,7 +134,7 @@ def check_linux_cursor_size_value(
     value: int,
 ) -> int:
     """检查设置的 Linux 鼠标指针大小是否符合范围
-    
+
     Args:
         value (int): 鼠标指针大小
     Returns:

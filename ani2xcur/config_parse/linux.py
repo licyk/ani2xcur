@@ -103,10 +103,7 @@ def parse_desktop_entry_content(
         ValueError: 当鼠标指针配置文件不完整时
     """
     desktop_entry = parse_inf_file(desktop_entry_path)
-    try:
-        return preprocess_desktop_entry_to_cursor_scheme(desktop_entry)
-    except ValueError as e:
-        raise e
+    return preprocess_desktop_entry_to_cursor_scheme(desktop_entry)
 
 
 def dict_to_desktop_entry_strings_format(

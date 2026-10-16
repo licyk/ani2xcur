@@ -69,7 +69,7 @@ class AlphabeticalMixedGroup(TyperGroup):
         ctx: _click.Context,
     ) -> list[str]:  # type: ignore[name-defined]
         """将命令按键名进行字母排序
-        
+
         Args:
             ctx (_click.Context): click 组件上下文
         Returns:

@@ -345,9 +345,7 @@ def _decode_dib_payload(payload: bytes, entry_width: int, entry_height: int) -> 
     if header_size < 40 or len(payload) < header_size:
         raise ValueError(f"Unsupported DIB header size {header_size}")
 
-    width, raw_height, planes, bit_count, compression, image_size, _, _, colors_used, _ = struct.unpack_from(
-        "<iiHHIIiiII", payload, 4
-    )
+    width, raw_height, planes, bit_count, compression, image_size, _, _, colors_used, _ = struct.unpack_from("<iiHHIIiiII", payload, 4)
     if planes != 1:
         raise ValueError(f"Unsupported DIB plane count {planes}")
     if compression != 0:

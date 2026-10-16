@@ -230,7 +230,7 @@ def extend_list_to_length(
     fill_value: str | None = "",
 ) -> list[Any]:
     """将列表扩展到指定长度
-    
+
     Args:
         lst (list[Any]): 原始列表
         target_length (int): 扩充到的指定长度
@@ -252,7 +252,7 @@ def generate_random_string(
     include_special: bool = False,
 ) -> str:
     """生成随机字符串
-    
+
     Args:
         length (int): 字符串长度, 默认为 8
         chars (str | None): 自定义字符集, 如果提供则忽略其他参数
